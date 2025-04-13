@@ -1,0 +1,267 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  min-height: 100vh;
+  color: #333;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+  color: #f1f1f1;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.app-container.dark {
+  color: #f1f1f1;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.header-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+header h1 {
+  color: white;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.location-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.location-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.location-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.recent-cities {
+  margin-top: 15px;
+  color: white;
+}
+
+.recent-cities p {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.city-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.city-tag {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.city-tag:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+main {
+  min-height: 70vh;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  padding: 20px;
+}
+
+.error-message {
+  background-color: #ffdddd;
+  color: #d8000c;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dark .error-message {
+  background-color: #4a1c1c;
+  color: #ff8080;
+}
+
+.weather-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.dark .weather-container {
+  background-color: rgba(44, 62, 80, 0.9);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.alerts-section,
+.forecast-section,
+.hourly-forecast-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.alerts-section h2,
+.forecast-section h2,
+.hourly-forecast-section h2 {
+  color: #444;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.dark .alerts-section h2,
+.dark .forecast-section h2,
+.dark .hourly-forecast-section h2 {
+  color: #e2e8f0;
+}
+
+.alerts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.dark .alerts-container {
+  scrollbar-color: #4a5568 #2d3748;
+}
+
+.alerts-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.alerts-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.dark .alerts-container::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+.alerts-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.dark .alerts-container::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+.alerts-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.dark .alerts-container::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 15px;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  .weather-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .weather-container {
+    padding: 12px;
+  }
+}

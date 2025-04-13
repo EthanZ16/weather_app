@@ -1,0 +1,99 @@
+.weather-alert {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.alert-title {
+  color: #856404;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.alert-source {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.alert-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.alert-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.alert-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.alert-tag {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Different types of alerts can have different colors */
+.weather-alert.severe {
+  background-color: #f8d7da;
+  border-left-color: #dc3545;
+}
+
+.weather-alert.severe .alert-title {
+  color: #721c24;
+}
+
+.weather-alert.moderate {
+  background-color: #fff3cd;
+  border-left-color: #ffc107;
+}
+
+.weather-alert.moderate .alert-title {
+  color: #856404;
+}
+
+.weather-alert.minor {
+  background-color: #d1ecf1;
+  border-left-color: #17a2b8;
+}
+
+.weather-alert.minor .alert-title {
+  color: #0c5460;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .alert-time {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .alert-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}

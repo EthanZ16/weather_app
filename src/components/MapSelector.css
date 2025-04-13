@@ -1,0 +1,168 @@
+.map-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.map-button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.map-button:hover {
+  background-color: #3a5ce5;
+}
+
+.map-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  height: 80vh;
+  max-height: 600px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.map-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.map-content {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.world-map {
+  width: 100%;
+  height: auto;
+  max-height: calc(80vh - 120px);
+  cursor: pointer;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.map-instruction {
+  margin-top: 15px;
+  color: #666;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .map-container {
+    width: 95%;
+    height: 90vh;
+  }
+  
+  .map-content {
+    padding: 10px;
+  }
+}
+
+/* Dark mode adaptation */
+.dark .map-container {
+  background-color: #2c3e50;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.dark .map-header {
+  border-bottom: 1px solid #3d5166;
+}
+
+.dark .map-header h3 {
+  color: #f1f1f1;
+}
+
+.dark .close-button {
+  color: #ccc;
+}
+
+.dark .close-button:hover {
+  color: #fff;
+}
+
+.dark .map-instruction {
+  color: #ccc;
+}
+
+.world-map path {
+  fill: #f8f9fa;
+  stroke: #4a6cf7;
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+
+.world-map circle {
+  fill: #4a6cf7;
+  stroke: #ffffff;
+  stroke-width: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+.world-map text {
+  fill: #333;
+  font-size: 12px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.world-map:hover {
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.15));
+}
+
+.dark .world-map path {
+  fill: #2c3e50;
+  stroke: #4a6cf7;
+}
+
+.dark .world-map circle {
+  fill: #4a6cf7;
+  stroke: #1a2533;
+}
+
+.dark .world-map text {
+  fill: #f1f1f1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}

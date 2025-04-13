@@ -1,0 +1,133 @@
+.seasonal-info {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.dark .seasonal-info {
+  background-color: #2c3e50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #f1f1f1;
+}
+
+.seasonal-header {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.seasonal-header h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.dark .seasonal-header h2 {
+  color: #f1f1f1;
+}
+
+.seasonal-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.dark .seasonal-main {
+  border-bottom: 1px solid #4a5568;
+}
+
+.solar-term-name h3 {
+  font-size: 1.5rem;
+  color: #2c5282;
+  margin-bottom: 10px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.dark .solar-term-name h3 {
+  color: #90cdf4;
+}
+
+.solar-term-description p {
+  color: #4a5568;
+  text-align: center;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.dark .solar-term-description p {
+  color: #cbd5e0;
+}
+
+.seasonal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detail-section {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.dark .detail-section {
+  background-color: #1a202c;
+}
+
+.detail-section h4 {
+  font-size: 1.1rem;
+  color: #2d3748;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.dark .detail-section h4 {
+  color: #e2e8f0;
+}
+
+.proverb {
+  font-style: italic;
+  color: #4a5568;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.dark .proverb {
+  color: #cbd5e0;
+}
+
+.weather-characteristics {
+  color: #4a5568;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.dark .weather-characteristics {
+  color: #cbd5e0;
+}
+
+@media (max-width: 768px) {
+  .seasonal-info {
+    padding: 15px;
+  }
+  
+  .seasonal-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .solar-term-name h3 {
+    font-size: 1.3rem;
+  }
+  
+  .detail-section {
+    padding: 12px;
+  }
+}
