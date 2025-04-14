@@ -9,6 +9,7 @@ import SeasonalInfo from './components/SeasonalInfo'
 import WeatherMap from './components/WeatherMap'
 import InteractiveMap from './components/InteractiveMap'
 import DailyFunFacts from './components/DailyFunFacts'
+import WeatherSocial from './components/WeatherSocial'
 import { 
   fetchWeatherData, 
   fetchForecastData, 
@@ -242,34 +243,43 @@ function App() {
           <div className="weather-container">
             <CurrentWeather data={currentWeather} />
             
+            <WeatherSocial 
+              weatherData={currentWeather} 
+              city={city} 
+              onCityChange={handleSearch} 
+            />
+            
             <SeasonalInfo />
             
             <InteractiveMap onSelectLocation={handleMapLocationSelect} />
             
             {hourlyForecast && (
               <div className="hourly-forecast-section">
+                <h2>Hourly Forecast</h2>
                 <HourlyForecast data={hourlyForecast} />
-              </div>
-            )}
-            
-            {alerts.length > 0 && (
-              <div className="alerts-section">
-                <h2>Weather Alerts</h2>
-                <div className="alerts-container">
-                  {alerts.map((alert, index) => (
-                    <WeatherAlert key={index} alert={alert} />
-                  ))}
-                </div>
               </div>
             )}
             
             {forecast && (
               <div className="forecast-section">
+                <h2>Forecast</h2>
                 <Forecast data={forecast} />
               </div>
             )}
             
-            <DailyFunFacts city={city} />
+            {alerts.length > 0 ? (
+              <div className="alerts-section">
+                <h2>Weather Alerts</h2>
+                <WeatherAlert alerts={alerts} />
+              </div>
+            ) : (
+              <div className="no-alerts">
+                <p>No weather alerts</p>
+              </div>
+            )}
+            
+            <WeatherMap />
+            <DailyFunFacts />
           </div>
         )}
       </main>

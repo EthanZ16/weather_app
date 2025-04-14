@@ -36,16 +36,18 @@ header {
 
 .header-top {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   position: relative;
+  padding: 0 20px;
 }
 
 .header-controls {
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-left: 30px;
 }
 
 header h1 {
