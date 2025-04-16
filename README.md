@@ -130,113 +130,131 @@
    - Vite packaging optimization, static files deployed to CDN.
 
 #### Optimization and expansion
+   *Cache*
+   - Local Storage reduces API calls.
 
-## Features
+   *Error handling*
+   - User-friendly prompts (such as "City not found").
 
-- City-based weather search with autocomplete suggestions
-- Current weather display (temperature, humidity, wind speed, pressure, etc.)
-- Multi-day weather forecast with detailed information
-- Weather alerts and warnings when available
-- Recent search history with quick access buttons
-- Light/Dark theme toggle for comfortable viewing
-- Responsive design that adapts to different devices and screen sizes
-- Support for international cities with proper localization
+   *Future plans*
+   - Air quality (AQI) display, multi-language support.
 
-## Technology Stack
+### (4) Testing
+#### Functional Testing
+   *City Search*
+   - Enter a valid city: The result is accurate and the relevant data is displayed complete.
+   - Enter an ambiguous city name: Directly try to find the most relevant match.
 
-- Frontend: React, CSS
-- State Management: React Hooks (useState, useEffect)
-- HTTP Client: Axios
-- Icons: React Icons
-- API: OpenWeatherMap
-- Build Tool: Vite
+   *Weather display*
+   - Real-time data refresh: It has an automatic update mechanism and the relevant settings are correct.
+   - Unit switching: All data are converted synchronously, including time, temperature units, etc.
 
-## Project Structure
+   *Forecast function*
+   - 24-hour forecast: ensure the consistency of the timeline and the accuracy of the forecast data.
+   - 5-day forecast: Ensure that the date calculation is accurate and the forecast data is relatively accurate and reasonable.
 
-```
-weather-app/
-├── public/            # Static assets
-├── src/
-│   ├── components/    # React components
-│   │   ├── CurrentWeather.jsx  # Current weather display
-│   │   ├── Forecast.jsx        # Weather forecast display
-│   │   ├── SearchBar.jsx       # Search functionality
-│   │   └── WeatherAlert.jsx    # Weather alerts display
-│   ├── services/      # API services
-│   │   └── weatherService.js   # Weather API integration
-│   ├── App.jsx        # Main application component
-│   └── main.jsx       # Application entry point
-├── .env.example       # Example environment variables
-└── package.json       # Project dependencies and scripts
-```
+   *System*
+   - Theme switching: There will be no screen flickering or incomplete switching errors when switching back and forth between two themes.
 
-## Development Plan
+#### Release Testing
+   *Pre-release check content*
+   - availability of core functions, API response time, browser compatibility (the website can be opened normally on multiple different browsers), and multiple client adaptation (for example, PC and mobile, Apple system and Android system).
 
-1. **Phase 1: Core Functionality** ✅
-   - Basic UI layout and components
-   - Weather data fetching from API
-   - Current weather display
+   *Key performance indicators in performance testing*
+   - throughput (large), error rate (extremely small), memory usage (small), CPU load (small).
 
-2. **Phase 2: Enhanced Features** ✅
-   - Weather forecast implementation
-   - Search history functionality
-   - Weather alerts integration
+   *Security testing*
+   - Checking sensitive data (ensuring API keys are not exposed)
 
-3. **Phase 3: UI/UX Improvements** ✅
-   - Light/Dark theme toggle
-   - Responsive design for all devices
-   - Loading states and error handling
+#### Acceptance Testing
+   *User acceptance test scenarios*
+   - Ensure that functions such as the complete weather query process and theme switching process are accurate.
+   *Indicators required for acceptance*
+   - Short first screen loading time, strong usability (uptime), and low vulnerability level (no high-risk vulnerabilities).
 
-4. **Phase 4: Optimization & Documentation** ✅
-   - Code refactoring and optimization
-   - Comprehensive documentation
-   - Deployment guides
+### (5) Deployment
+#### Pre-deployment preparation
+   - Deploy the corresponding resources to one of the three platforms: Vercel, Netlify, or GitHub Pages.Finally we chose the platform: Vercel
 
-## Local Development
+#### Maintenance Program
+   *Monitoring*
+   - Front-end monitoring
+   - Performance monitoring
+   - API health check
 
-1. Clone the project to your local machine
-2. Install dependencies: `npm install`
-3. Configure environment variables:
-   - Copy `.env.example` to `.env`
-   - Set your OpenWeatherMap API key in the `.env` file
-4. Start the development server: `npm run dev`
-5. Access in your browser: `http://localhost:5173`
+   *Update strategy*
+   - Update at regular intervals
+   - Version rollback mechanism (can roll back within a certain period of time to avoid code errors leading to wrong version releases)
 
-## Deploying the Website (Making it Accessible to Everyone)
+## Team members and contributions
 
-To make this weather query website accessible to everyone, you need to deploy it to a publicly accessible server:
+## Algorithm
+ - Temperature Conversion Algorithm: Convert Kelvin temperature to Celsius by subtracting 273.15 and rounding to an integer result.
+ - Wind speed level calculation algorithm: The wind force level is judged according to the wind speed value (m/s), which is divided into four levels: no wind, light breeze, gentle breeze and strong wind.
+ - Feeling temperature calculation algorithm: Considers the combined effects of actual temperature, humidity and wind speed to calculate the actual temperature felt by the human body.
+ - Data grouping algorithm: Group weather forecast data by day and calculate daily average temperature, maximum/minimum temperature, etc.
+ - Data interpolation algorithm: Convert 3-hour interval weather data into hourly data for 24-hour weather forecast display.
 
-1. Build the project: `npm run build`
-2. Deploy the generated `dist` directory to one of the recommended platforms:
-   - [Vercel](https://vercel.com/) (recommended, simple to use)
-   - [Netlify](https://www.netlify.com/) (also simple)
-   - [GitHub Pages](https://pages.github.com/) (free hosting)
+## Current Status
+### (1) Completed Features
+  - City weather search function: supports multiple query methods
+  - Current weather display: including temperature, humidity, wind speed, air pressure, wind speed and other basic information.
+  - 24-hour forecast: Grouped by hour and displays simple information such as time and temperature.
+  - Multi-day forecast: correctly display the date, day of the week, maximum temperature, minimum temperature and other valid information.
+  - Theme switching: Free switching between two themes is realized, optimizing the visual experience.
 
-For detailed deployment steps, please refer to the `DEPLOYMENT.md` file in the project.
+### (2) Functions that are constantly being improved
+  - Interactive map optimization: The basic map display and clickable city coordinates have been completed, and optimization will continue. For example, regional weather overview, mobile gesture support optimization, etc.
 
-## Important Notes
+### (3) Currently, the test coverage of various functions has reached 75%.
 
-- The environment variable `VITE_APP_WEATHER_API_KEY` must be correctly set during deployment
-- Do not hardcode the API key in your code
-- Be aware of the usage limits of the OpenWeatherMap API
-- The application uses responsive design principles to work on various devices
+## Future Plans
+### (1) Added Air Quality Index (AQI) display
+  - For example, the system obtains the index of relevant air pollutants and rates the air quality according to the corresponding evaluation criteria (heavy pollution, light pollution, good, excellent).
 
-## Contributing
+### (2) Implement weather data caching to reduce API calls
+  - Add caching function to the software, reduce the number of API calls and shorten the response time
 
-Contributions to improve the Weather Query Website are welcome. Please follow these steps:
+### (3) Add weather alerts
+  - Different alert levels (prompt, concern, warning, emergency) are divided according to the impact of the weather, and different types of notifications are sent to customers according to the alert level.
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature-name`
-5. Submit a pull request
+### (4) Added automatic detection of user location
+  - If the user turns on "Location information access permission", the system will automatically obtain the current location and return detailed weather information at the user's coordinates.
 
-## License
+### (5) Support more language localization
+  - To adapt to users in different countries and regions, we will continue to update the software language system to support multiple languages.
 
-This project is available for use under the MIT License.
+### (6) Develop mobile app version
+  - The current software can realize web page query. In order to optimize the experience and take care of the majority of mobile users, we will try to develop a mobile application version to facilitate users.
 
-## Acknowledgements
+## Development Environment
+### 1.Programming languages ​​and technology stack
+  - Main language: JavaScript (ES6+)
+  - Framework: React 18
+  - Build tool: Vite
+  - CSS processing: Native CSS + CSS modules
 
-- Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
-- Icons from [React Icons](https://react-icons.github.io/react-icons/)
-- Built with [React](https://reactjs.org/) and [Vite](https://vitejs.dev/)
+### 2.Hardware/Software Requirements
+  *Development Environment*
+  - Node.js v16+
+  - npm 8+
+  - modern browsers (Chrome/Firefox/Edge)
+
+  *Production environment*
+  - Any browser that supports modern JavaScript
+  - A server with at least 1GB of RAM
+
+## Third-party dependencies
+   - react (^18.2.0) : A JavaScript library for building user interfaces, which is the core framework of the application.
+   - react-dom (^18.2.0) : React's DOM rendering package, responsible for rendering React components into the browser DOM.
+   - axios (^1.3.4) : A library for sending HTTP requests, which is used in the application to obtain weather data from the OpenWeatherMap API.
+   - react-icons (^4.8.0) : A React component library that provides various icons, which is used for various icon displays in the application.
+
+## Statement
+### This project uses the following open source resources:
+  - Weather data: provided by OpenWeatherMap API (subject to its terms of use).
+  - Icons: from React Icons library (MIT license).
+  - UI components: based in part on best practices from the open source community.
+
+
+### This project follows the MIT open source license. All third-party libraries are used under their respective licenses.
