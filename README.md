@@ -10,12 +10,12 @@ Weather query system is a widely used software. Its competitors are not only oth
 - Facilitates rapid iteration and adjustment of feature priorities: The agile development process allows us to adjust the order of feature development according to the urgency of customer needs and better respond to market demands.
 - Suitable for small development team collaboration: Small teams are more flexible and creative, and members can communicate with each other in a timely manner, all of which are more in line with the characteristics of agile development processes.
 3. **Software Type and Target Market**
-  - Software Type: The software we developed is a comprehensive weather query web application, mainly for users who need to check the weather in real time.
-  - Target Market: 
-·Individual users who need to plan travel and outdoor activities on a daily basis.
-·Travelers who need to understand or compare weather conditions in multiple destinations.
-·Weather enthusiasts interested in weather data.
-·Students and office workers who check the weather in the morning to decide what to wear.
+   - Software Type: The software we developed is a comprehensive weather query web application, mainly for users who need to check the weather in real time.
+   - Target Market: 
+    ·Individual users who need to plan travel and outdoor activities on a daily basis.
+    ·Travelers who need to understand or compare weather conditions in multiple destinations.
+    ·Weather enthusiasts interested in weather data.
+    ·Students and office workers who check the weather in the morning to decide what to wear.
 
 ## Software Purpose
 The purpose of this application is to provide users with accurate and timely weather information to help them plan their activities. It serves as a practical tool for checking weather conditions in various locations around the world, with special support for major international cities.
