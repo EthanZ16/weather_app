@@ -22,17 +22,17 @@
 ## Software development and design
 ### （1）Development Process
 #### Requirements analysis:
-   **User portrait analysis**
+   *User portrait analysis*
    - Daily commuters: Everyone needs to check the weather, follow real-time weather and short-term weather forecasts.
    - Outdoor sports enthusiasts/weather enthusiasts: need professional data such as wind speed, air pressure, visibility, etc.
    - Travelers: To make travel plans, you need to compare the weather in multiple cities and data on weather changes over a long period of time in the future.
    - Other types of users: Our software is constantly updated and upgraded with new features, which means we can attract more different types of customer groups.
-   **Core features**
+   *Core features*
    - Must Have: City search, real-time weather display (basic information about the weather, such as temperature, humidity, weather icons, etc.), 24-hour weather forecast.
    - Should Have: Five-day weather forecast, weather warning, solar term display, and other interesting weather information.
    - Could Have:Air quality map, interactive map (click on the corresponding location coordinates on the map to view the local weather), weather data export.
    - Other possible new features: a more complete interactive weather map, additional tips on the impact of weather on health, and display of the day's sunrise and sunset times.
-   **Technical Requirements Analysis**
+   *Technical Requirements Analysis*
    - API Selection.
    - Adaptation solutions for different clients.
    - Data update frequency strategy.
