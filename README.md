@@ -27,16 +27,77 @@
    - Outdoor sports enthusiasts/weather enthusiasts: need professional data such as wind speed, air pressure, visibility, etc.
    - Travelers: To make travel plans, you need to compare the weather in multiple cities and data on weather changes over a long period of time in the future.
    - Other types of users: Our software is constantly updated and upgraded with new features, which means we can attract more different types of customer groups.
+     
    *Core features*
    - Must Have: City search, real-time weather display (basic information about the weather, such as temperature, humidity, weather icons, etc.), 24-hour weather forecast.
    - Should Have: Five-day weather forecast, weather warning, solar term display, and other interesting weather information.
    - Could Have:Air quality map, interactive map (click on the corresponding location coordinates on the map to view the local weather), weather data export.
    - Other possible new features: a more complete interactive weather map, additional tips on the impact of weather on health, and display of the day's sunrise and sunset times.
+     
    *Technical Requirements Analysis*
    - API Selection.
    - Adaptation solutions for different clients.
    - Data update frequency strategy.
-#### System Design
+### (2) System Design
+#### Define the context and modes of use of the system
+   *Context*
+    - The weather query website is a web-based application that mainly provides users with real-time weather information, weather forecasts, and meteorological data visualization. The system obtains weather data by calling the OpenWeatherMap API and displays it to users on the front end. Users can access the website through a browser and enter a city name or automatically detect a location to query the weather.
+
+   *Modes of Use*
+    - Normal user mode: Users enter the city name in the search box to query the current weather, 24-hour forecast, and multi-day forecast. The system supports theme switching (such as day/night mode) and basic interaction (click the show chart label to interact with the weather forecast for the next 24 hours).
+    - Weather Enthusiast Mode: Users are interested in detailed weather data (such as wind speed, humidity, air pressure, etc.), and the system provides more comprehensive data display and chart analysis functions.
+    
+####  Design the system architecture
+   The system adopts the "front-end and back-end separation" architecture, built on the React framework, and is specifically divided into the following levels:
+   *Front-end layer*
+   - User interface (UI): implemented using React components, including search bar, weather card, charts, etc.
+   - State management: manage global state (such as user-selected city, theme preference) through React Context or Redux.
+   - API call: use Axios to get data from OpenWeatherMap API, and convert and cache the data.
+
+   *Backend layer (optional)*
+   - If users need to log in or save preferences in the future, you can introduce a Node.js backend service to process user data and cache weather information.
+
+   *Data layer*
+   - Rely on a third-party API (OpenWeatherMap) to provide raw weather data.
+
+####  Principal System Objects
+   *WeatherData*
+   - Encapsulates the raw weather data obtained from the API and provides access methods for attributes such as temperature, humidity, and wind speed.
+     
+   *CitySearch*
+   - Processes the city name entered by the user, validates the input and triggers the API query.
+
+   *ForecastDisplay*
+   - Responsible for grouping weather data by hour or day, generating the display logic for 24-hour forecasts and multi-day forecasts.
+
+   *ThemeManager*
+   - Manages theme switching and saves user preferences (such as day/night mode).
+
+   *UserLocation*
+   - Implements automatic user location detection (via the browser Geolocation API).
+
+####  Design Models
+   *User interface mockup*
+   - The search bar is at the top of the page, with the current weather, 24-hour forecast (horizontal scroll bar), multi-day forecast (card list) and some interesting facts about the weather displayed below. At the same time, users can also choose to use the interactive map to more quickly query weather information in other cities.
+   - Theme switch button is fixed in the upper right corner.
+
+   *Data flow model*
+   - User enters city name → CitySearch triggers API request → Returned data is processed by WeatherData → ForecastDisplay updates UI.
+   - User switches themes → ThemeManager updates CSS variables → Global UI re-renders.
+
+   *State machine model*
+   - Loading state: Display loading animation.
+   - Success state: Display weather data.
+   - Error state: Display error message (such as "City not found").
+     
+####  Object Interfaces
+   *WeatherData interface*
+   - Provides access methods for weather data, including getting the current temperature (returning a numerical value in degrees Celsius), wind speed level (such as the string "breeze"), and multi-day forecast data (returning an array of date, maximum/minimum temperature).
+   *CitySearch interface*
+   - Handles the city search function, including two methods: ‘search’ (asynchronously initiates API requests and returns weather data) and ‘validateInput’(validates whether the city name entered by the user is legal).
+   *ThemeManager interface*
+   - Manages theme switching functions, supports switching day/night mode (toggleTheme) and getting the current theme name (getCurrentTheme)
+     
 ## Features
 
 - City-based weather search with autocomplete suggestions
