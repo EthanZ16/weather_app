@@ -97,7 +97,40 @@
    - Handles the city search function, including two methods: ‘search’ (asynchronously initiates API requests and returns weather data) and ‘validateInput’(validates whether the city name entered by the user is legal).
    *ThemeManager interface*
    - Manages theme switching functions, supports switching day/night mode (toggleTheme) and getting the current theme name (getCurrentTheme)
+
+### (3) Implementation
+#### Technology stack and development environment
+   - Front-end: React 18 + Vite (fast build), CSS modularization.
+   - API integration: Axios calls OpenWeatherMap API to get weather data.
+   - Development platform: Node.js environment, debug with modern browsers (Chrome/Firefox).
+   - Production environment: Deploy to a server that supports JavaScript (such as Netlify/Vercel).
+
+#### Core Function Implementation
+   *Data Acquisition*
+   - Asynchronously request weather data through the OpenWeatherMap API and use Axios to handle HTTP requests.
+
+   *Data Processing*
+   - Temperature conversion (Kelvin → Celsius).
+   - Wind speed level classification (no wind/light breeze/strong wind).
+   - Forecast data grouped by day (calculate daily average temperature, maximum/minimum temperature).
+
+   *UI Components*
+   - Search bar (CitySearch component): input validation and API triggering.
+   - Weather card (WeatherData component): display current weather, 24-hour chart (line chart), multi-day forecast.
+   - Theme switching (ThemeManager  component): dynamic update of CSS variables.
+
+#### Configuration management and deployment
+   *Version control*
+   - Git manages code, branch strategy (such as `main`/`dev`).
      
+   *Dependency management*
+   - Use `package.json` to specify third-party libraries (such as React Icons, Axios).
+
+   *Build and deployment*
+   - Vite packaging optimization, static files deployed to CDN.
+
+#### Optimization and expansion
+
 ## Features
 
 - City-based weather search with autocomplete suggestions
