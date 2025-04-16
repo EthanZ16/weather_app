@@ -2,9 +2,11 @@
 
 ## Graphical Abstract
 ## Purpose of the software
-1. Software development process:Agile
-2. Reasons
-This is a comprehensive weather query application that allows users to search for weather information by city name. The application provides current weather conditions, forecasts, and weather alerts in a user-friendly interface with both light and dark themes.
+1. ## Software development process:Agile
+2. ## Reasons
+Weather query system is a widely used software. Its competitors are not only other weather software, but also the weather query system that comes with the mobile phone. If we want to seize the first opportunity in the market, we need to achieve Time to Market.
+- Requirements change with user feedback:
+  Initially we only considered basic data, but as development progresses, users may also have strong demands for other indices such as customs and air pressure.
 
 ## Software Purpose
 The purpose of this application is to provide users with accurate and timely weather information to help them plan their activities. It serves as a practical tool for checking weather conditions in various locations around the world, with special support for major international cities.
