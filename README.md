@@ -1,6 +1,9 @@
 # Weather Query Website
 
-## Project Summary
+## Graphical Abstract
+## Purpose of the software
+1. Software development process:Agile
+2. Reasons
 This is a comprehensive weather query application that allows users to search for weather information by city name. The application provides current weather conditions, forecasts, and weather alerts in a user-friendly interface with both light and dark themes.
 
 ## Software Purpose
