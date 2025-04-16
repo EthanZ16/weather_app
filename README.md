@@ -9,9 +9,10 @@
    - Allows for phased delivery of core functionality: We can first complete the most basic "city search + weather display" function, and then gradually complete the implementation of functions such as 24-hour weather forecast, five-day weather forecast, historical weather, etc.
    - Facilitates rapid iteration and adjustment of feature priorities: The agile development process allows us to adjust the order of feature development according to the urgency of customer needs and better respond to market demands.
    - Suitable for small development team collaboration: Small teams are more flexible and creative, and members can communicate with each other in a timely manner, all of which are more in line with the characteristics of agile development processes.
-### 3.Software Type and Target Market**
+### 3.Software Type and Target Market
    **Software Type:**
    - The software we developed is a comprehensive weather query web application, mainly for users who need to check the weather in real time.
+
    **Target Market:**
    - Individual users who need to plan travel and outdoor activities on a daily basis.
    - Travelers who need to understand or compare weather conditions in multiple destinations.
