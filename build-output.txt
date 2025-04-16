@@ -1,0 +1,21 @@
+X [ERROR] Expected "}" but found "port"
+
+    vite.config.js:9:4:
+      9 鈹?    port: 5173,
+        鈹?    ~~~~
+        鈺?    }
+
+failed to load config from C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\vite.config.js
+error during build:
+Error: Build failed with 1 error:
+vite.config.js:9:4: ERROR: Expected "}" but found "port"
+    at failureErrorWithLog (C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:1472:15)
+    at C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:945:25
+    at runOnEndCallbacks (C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:1315:45)
+    at buildResponseToResult (C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:943:7)
+    at C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:970:16
+    at responseCallbacks.<computed> (C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:622:9)
+    at handleIncomingPacket (C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:677:12)
+    at Socket.readFromStdout (C:\Users\Administrator\Desktop\杞欢宸ョ▼\weather-app\node_modules\esbuild\lib\main.js:600:7)
+    at Socket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)

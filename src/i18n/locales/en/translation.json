@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "Weather Forecast",
+    "loading": "Loading weather data...",
+    "error": "Error",
+    "currentLocation": "Current Location",
+    "recentSearches": "Recent searches",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "weather": {
+    "temperature": "Temperature",
+    "feelsLike": "Feels Like",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "pressure": "Pressure",
+    "visibility": "Visibility",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "forecast": "Forecast",
+    "hourly": "Hourly Forecast",
+    "alerts": "Weather Alerts",
+    "noAlerts": "No weather alerts",
+    "search": {
+      "placeholder": "Enter city name...",
+      "button": "Search"
+    },
+    "share": "Share Weather",
+    "shareTitle": "Current Weather",
+    "shareText": "Current weather in {{city}}: {{temp}}°C, {{condition}}",
+    "shareCopied": "Weather information copied to clipboard!",
+    "favorite": "Favorite",
+    "unfavorite": "Unfavorite",
+    "comments": "Comments",
+    "commentPlaceholder": "Add a comment about the weather...",
+    "commentSubmit": "Post",
+    "noComments": "No comments yet. Be the first to comment!"
+  },
+  "units": {
+    "celsius": "°C",
+    "fahrenheit": "°F",
+    "kmh": "km/h",
+    "mph": "mph",
+    "hPa": "hPa",
+    "mm": "mm",
+    "km": "km"
+  },
+  "errors": {
+    "locationError": "Unable to get your location. Please check your browser settings or search manually.",
+    "weatherError": "Unable to fetch weather data. Please check the city name or try again later.",
+    "networkError": "Network error. Please check your internet connection."
+  }
+} 

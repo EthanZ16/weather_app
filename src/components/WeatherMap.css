@@ -1,0 +1,312 @@
+.weather-map {
+  position: relative;
+  display: inline-block;
+}
+
+.map-button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.map-button:hover {
+  background-color: #3a5ce5;
+}
+
+.map-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  max-height: 700px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  background-color: #f8f9fa;
+}
+
+.map-header h3 {
+  margin: 0;
+  color: #333;
+  flex: 1;
+}
+
+.map-controls {
+  display: flex;
+  gap: 10px;
+  margin-right: 15px;
+}
+
+.mode-button {
+  background-color: #e9ecef;
+  color: #495057;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-button:hover {
+  background-color: #dee2e6;
+}
+
+.mode-button.active {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.map-content {
+  flex: 1;
+  padding: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.map-draggable-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f0f8ff;
+}
+
+.world-map {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  transition: transform 0.3s ease;
+  touch-action: none; /* Prevents default touch actions */
+}
+
+.world-map:active {
+  cursor: grabbing;
+}
+
+.map-instructions {
+  margin-top: 15px;
+  color: #666;
+  text-align: center;
+  font-size: 0.9rem;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.map-loading,
+.map-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.map-error {
+  color: #dc3545;
+  border-left: 4px solid #dc3545;
+}
+
+.map-loading {
+  color: #4a6cf7;
+  border-left: 4px solid #4a6cf7;
+}
+
+/* City styling */
+.city circle {
+  transition: all 0.3s ease;
+}
+
+.city:hover circle {
+  r: 6;
+  fill: #ff9800;
+}
+
+.city text {
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.city:hover text {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.city.selected circle {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    r: 7;
+    opacity: 1;
+  }
+  50% {
+    r: 10;
+    opacity: 0.7;
+  }
+  100% {
+    r: 7;
+    opacity: 1;
+  }
+}
+
+/* Storm path styling */
+.storm-paths polyline {
+  stroke-dashoffset: 1000;
+  stroke-dasharray: 1000;
+  animation: dash 3s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Rainfall heatmap styling */
+.rainfall-heatmap circle {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.7; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .map-container {
+    width: 95%;
+    height: 90vh;
+  }
+  
+  .map-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .map-controls {
+    width: 100%;
+    justify-content: space-between;
+    margin-right: 0;
+  }
+  
+  .mode-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+/* Dark mode support */
+.dark .map-container {
+  background-color: #222;
+  color: #eee;
+}
+
+.dark .map-header {
+  background-color: #333;
+  border-bottom-color: #444;
+}
+
+.dark .map-header h3 {
+  color: #eee;
+}
+
+.dark .mode-button {
+  background-color: #444;
+  color: #ddd;
+}
+
+.dark .mode-button:hover {
+  background-color: #555;
+}
+
+.dark .mode-button.active {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+.dark .map-instructions {
+  background-color: #333;
+  color: #ddd;
+}
+
+.dark .map-draggable-container {
+  background-color: #2a2a2a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark .world-map path {
+  fill: #333;
+  stroke: #4a6cf7;
+}
+
+.dark .city text {
+  fill: #ddd;
+}
+
+.dark .map-loading,
+.dark .map-error {
+  background-color: rgba(40, 40, 40, 0.9);
+  color: #eee;
+}
+
+.dark .map-error {
+  border-left-color: #dc3545;
+}
+
+.dark .map-loading {
+  border-left-color: #4a6cf7;
+}

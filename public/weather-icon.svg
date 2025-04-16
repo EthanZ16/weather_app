@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD600" />
+      <stop offset="100%" stop-color="#FF9500" />
+    </linearGradient>
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E0E0E0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sun -->
+  <circle cx="32" cy="24" r="12" fill="url(#sunGradient)" />
+  
+  <!-- Sun rays -->
+  <line x1="32" y1="8" x2="32" y2="4" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="32" y1="44" x2="32" y2="40" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="16" y1="24" x2="12" y2="24" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="52" y1="24" x2="48" y2="24" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="21" y1="13" x2="18" y2="10" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="43" y1="13" x2="46" y2="10" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="21" y1="35" x2="18" y2="38" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  <line x1="43" y1="35" x2="46" y2="38" stroke="#FFD600" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Cloud -->
+  <path d="M50,36c0-6.6-5.4-12-12-12c-5.2,0-9.6,3.3-11.3,8H26c-5.5,0-10,4.5-10,10s4.5,10,10,10h24c5.5,0,10-4.5,10-10 C60,40.5,55.5,36,50,36z" fill="url(#cloudGradient)" stroke="#CCCCCC" stroke-width="1" />
+</svg>

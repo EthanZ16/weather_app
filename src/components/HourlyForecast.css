@@ -1,0 +1,127 @@
+.hourly-forecast {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hourly-forecast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.hourly-forecast h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.view-toggle-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Display black text in day mode */
+.light .view-toggle-btn {
+  color: black;
+}
+
+.view-toggle-btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.hourly-forecast-container {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
+}
+
+.hourly-forecast-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hourly-forecast-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+.hourly-item {
+  min-width: 90px;
+  text-align: center;
+  padding: 8px 5px;
+  border-right: 1px solid var(--border-color);
+  transition: transform 0.2s;
+}
+
+.hourly-item:hover {
+  transform: translateY(-3px);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.hourly-item:last-child {
+  border-right: none;
+}
+
+.hourly-time {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.hourly-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+.hourly-temp {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 5px 0;
+  color: var(--text-color);
+}
+
+.hourly-description {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.hourly-chart-container {
+  height: 300px;
+  position: relative;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .hourly-item {
+    min-width: 80px;
+  }
+  
+  .hourly-icon img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .hourly-temp {
+    font-size: 1rem;
+  }
+  
+  .hourly-description {
+    font-size: 0.7rem;
+  }
+  
+  .hourly-chart-container {
+    height: 250px;
+  }
+}
