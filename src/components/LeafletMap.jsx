@@ -14,34 +14,6 @@ function LeafletMap({ onSelectLocation }) {
   
   // Initialize map
   useEffect(() => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    if (showMap && !leafletMapRef.current) {
-      // Ensure Leaflet library is loaded
-      if (window.L) {
-        try {
-          // Create map instance with error handling
-          leafletMapRef.current = window.L.map(mapRef.current, {
-            center: [20, 0],
-            zoom: 2,
-            maxBounds: [[-90, -180], [90, 180]], // 限制地图边界
-            maxBoundsViscosity: 1.0
-          });
-          
-          // Add OpenStreetMap tile layer
-          window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 18,
-          }).addTo(leafletMapRef.current);
-          
-          // Add markers for major world cities
-          addCityMarkers();
-        } catch (error) {
-          console.error('Error initializing map:', error);
-        }
-=======
-=======
->>>>>>> Stashed changes
     if (!showMap) return;
 
     const initializeMap = async () => {
@@ -52,13 +24,14 @@ function LeafletMap({ onSelectLocation }) {
         }
 
         if (!mapRef.current) {
-          const mapContainer = document.getElementById('map');
-          if (!mapContainer) {
-            console.error('Map container not found');
-            return;
-          }
+          // 创建地图容器
+          const mapContainer = document.createElement('div');
+          mapContainer.id = 'map';
+          mapContainer.style.height = '100%';
+          mapContainer.style.width = '100%';
+          document.querySelector('.map-container').appendChild(mapContainer);
 
-          // 初始化地图，使用世界中心点
+          // 初始化地图
           mapRef.current = L.map('map', {
             center: [0, 0],
             zoom: 2,
@@ -68,8 +41,10 @@ function LeafletMap({ onSelectLocation }) {
             )
           });
 
+          // 添加地图图层
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
           }).addTo(mapRef.current);
 
           // 尝试获取用户位置
@@ -82,7 +57,6 @@ function LeafletMap({ onSelectLocation }) {
               },
               (error) => {
                 console.log('Geolocation error:', error);
-                // 如果无法获取位置，保持世界视图
               }
             );
           }
@@ -95,10 +69,6 @@ function LeafletMap({ onSelectLocation }) {
         }
       } catch (error) {
         console.error('Error initializing map:', error);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
       }
     };
 
@@ -108,6 +78,10 @@ function LeafletMap({ onSelectLocation }) {
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
+      }
+      const mapContainer = document.getElementById('map');
+      if (mapContainer) {
+        mapContainer.remove();
       }
     };
   }, [showMap]);
@@ -254,68 +228,24 @@ function LeafletMap({ onSelectLocation }) {
       console.error('Error updating heatmap:', error);
     }
   };
-<<<<<<< Updated upstream
-  
-  const fetchRainfallData = async (lat, lng) => {
-    try {
-      const apiKey = import.meta.env.VITE_APP_WEATHER_API_KEY;
-      if (!apiKey) {
-        throw new Error('API key is missing');
-      }
-
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`
-      );
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      // 验证数据格式
-      if (!data.list || !Array.isArray(data.list)) {
-        throw new Error('Invalid data format received from API');
-      }
-
-      // 处理降雨量数据
-      const rainfallData = data.list.map(item => ({
-        lat,
-        lng,
-        value: item.rain ? item.rain['3h'] || 0 : 0
-      }));
-
-      return rainfallData;
-    } catch (error) {
-      console.error('Error fetching rainfall data:', error);
-      return [];
-    }
-  };
-=======
->>>>>>> Stashed changes
   
   return (
     <div className="leaflet-map-container">
-      <button 
-        className="map-button" 
-        onClick={toggleMap}
-        aria-label="Open Real World Map"
-      >
-        🗺️ Real World Map
+      <button className="map-button" onClick={toggleMap}>
+        {showMap ? '隐藏地图' : '显示地图'}
       </button>
       
       {showMap && (
         <div className="leaflet-map-modal">
           <div className="map-header">
-            <h3>Interactive World Map</h3>
-            <p className="map-instruction">Click on any location to get weather information</p>
-            <button className="close-button" onClick={() => setShowMap(false)}>×</button>
+            <h3>世界地图</h3>
+            <button className="close-button" onClick={toggleMap}>×</button>
           </div>
-          
-          <div id="map" ref={mapRef} className="leaflet-map"></div>
-          
+          <div className="map-container"></div>
           <div className="map-footer">
-            <p>Data from OpenStreetMap | Click on markers to select cities</p>
+            <p className="map-instruction">
+              点击地图上的任意位置查看该地区的降雨情况
+            </p>
           </div>
         </div>
       )}
