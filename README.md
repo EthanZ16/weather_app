@@ -21,23 +21,10 @@
 
 ## Software development and design
 ### （1）Development Process
-#### Requirements analysis:
-   *User portrait analysis*
-   - Daily commuters: Everyone needs to check the weather, follow real-time weather and short-term weather forecasts.
-   - Outdoor sports enthusiasts/weather enthusiasts: need professional data such as wind speed, air pressure, visibility, etc.
-   - Travelers: To make travel plans, you need to compare the weather in multiple cities and data on weather changes over a long period of time in the future.
-   - Other types of users: Our software is constantly updated and upgraded with new features, which means we can attract more different types of customer groups.
-     
-   *Core features*
-   - Must Have: City search, real-time weather display (basic information about the weather, such as temperature, humidity, weather icons, etc.), 24-hour weather forecast.
-   - Should Have: Five-day weather forecast, weather warning, solar term display, and other interesting weather information.
-   - Could Have:Air quality map, interactive map (click on the corresponding location coordinates on the map to view the local weather), weather data export.
-   - Other possible new features: a more complete interactive weather map, additional tips on the impact of weather on health, and display of the day's sunrise and sunset times.
-     
-   *Technical Requirements Analysis*
-   - API Selection.
-   - Adaptation solutions for different clients.
-   - Data update frequency strategy.
+#### Requirement engineering:
+-Before initiating this project, we conducted market research to analyze user needs for weather applications. Our findings revealed that daily commuters primarily require real-time weather updates and short-term forecasts, while outdoor sports enthusiasts and weather hobbyists need professional meteorological data such as wind speed, air pressure, and visibility. Travelers, on the other hand, often need to compare weather conditions across multiple cities and access long-term weather trend data for trip planning. Additionally, through continuous feature updates and enhancements, we can attract a broader range of user demographics.
+-The weather application we are developing integrates multiple practical features. Core must-have functionalities include: city search, real-time weather display (basic information such as temperature, humidity, visibility, and weather icons), and 24-hour forecasts. Key features consist of 5-day weather forecasts, weather sharing, weather comments, weather favorites, solar term displays, and other engaging weather-related information. Extended functionalities cover an interactive map (clicking on coordinates to view local weather, global storm tracks, and rainfall heatmaps). Future updates may introduce more comprehensive interactive weather maps, global storm tracking, rainfall heatmaps, and health impact alerts related to weather conditions.
+-From a technical requirements perspective, our primary focus areas include: API selection, multi-client adaptation solutions, and data update frequency strategies as critical technical considerations.
 ### (2) System Design
 #### Define the context and modes of use of the system
    *Context*
