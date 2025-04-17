@@ -2,9 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 import './WeatherMap.css';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.heat';
 import { worldMapData, worldCityCoordinates } from '../assets/world-map-data';
 import { fetchGlobalStormData, fetchRainfallHeatmap } from '../services/specialWeatherService';
+
+// 动态加载 leaflet.heat
+useEffect(() => {
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js';
+  script.async = true;
+  document.body.appendChild(script);
+  
+  return () => {
+    document.body.removeChild(script);
+  };
+}, []);
 
 function WeatherMap({ onSelectLocation }) {
   const [showMap, setShowMap] = useState(false);
@@ -152,19 +163,23 @@ function WeatherMap({ onSelectLocation }) {
         mapRef.current.removeLayer(heatmapLayer.current);
       }
 
-      heatmapLayer.current = L.heatLayer(data, {
-        radius: 25,
-        blur: 15,
-        maxZoom: 10,
-        minOpacity: 0.5,
-        gradient: {
-          0.4: 'blue',
-          0.6: 'cyan',
-          0.7: 'lime',
-          0.8: 'yellow',
-          1.0: 'red'
-        }
-      }).addTo(mapRef.current);
+      // 使用 Leaflet 的 CircleMarker 来模拟热图效果
+      const markers = data.map(point => {
+        const value = parseFloat(point.value);
+        const radius = Math.max(5, value * 5);
+        const opacity = Math.min(0.7, value / 10);
+        
+        return L.circleMarker([point.lat, point.lng], {
+          radius: radius,
+          fillColor: getColor(value),
+          color: '#fff',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: opacity
+        });
+      });
+
+      heatmapLayer.current = L.layerGroup(markers).addTo(mapRef.current);
 
       console.log('Heatmap updated successfully');
     } catch (error) {
@@ -175,6 +190,15 @@ function WeatherMap({ onSelectLocation }) {
       document.querySelector('.map-container').appendChild(errorMessage);
       setTimeout(() => errorMessage.remove(), 3000);
     }
+  };
+
+  // 根据降雨量值获取颜色
+  const getColor = (value) => {
+    if (value <= 2) return '#0000ff'; // 蓝色
+    if (value <= 4) return '#00ffff'; // 青色
+    if (value <= 6) return '#00ff00'; // 绿色
+    if (value <= 8) return '#ffff00'; // 黄色
+    return '#ff0000'; // 红色
   };
 
   const handleCitySelect = (cityName) => {
