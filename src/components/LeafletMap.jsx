@@ -11,6 +11,7 @@ function LeafletMap({ onSelectLocation }) {
   const leafletMapRef = useRef(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const heatmapLayer = useRef(null);
+  const [mapMode, setMapMode] = useState('default'); // 'default', 'rainfall'
   
   // Initialize map
   useEffect(() => {
@@ -68,7 +69,9 @@ function LeafletMap({ onSelectLocation }) {
             async (position) => {
               const { latitude, longitude } = position.coords;
               mapRef.current.setView([latitude, longitude], 13);
-              await updateHeatmap(latitude, longitude);
+              if (mapMode === 'rainfall') {
+                await updateHeatmap(latitude, longitude);
+              }
             },
             (error) => {
               console.log('Geolocation error:', error);
@@ -79,7 +82,9 @@ function LeafletMap({ onSelectLocation }) {
         // 添加点击事件处理
         mapRef.current.on('click', async (e) => {
           const { lat, lng } = e.latlng;
-          await updateHeatmap(lat, lng);
+          if (mapMode === 'rainfall') {
+            await updateHeatmap(lat, lng);
+          }
         });
 
         console.log('Map initialized successfully');
@@ -96,7 +101,7 @@ function LeafletMap({ onSelectLocation }) {
         mapRef.current = null;
       }
     };
-  }, [showMap]);
+  }, [showMap, mapMode]);
   
   // Add city markers
   const addCityMarkers = () => {
@@ -252,6 +257,17 @@ function LeafletMap({ onSelectLocation }) {
       setTimeout(() => errorMessage.remove(), 3000);
     }
   };
+
+  const changeMapMode = (mode) => {
+    setMapMode(mode);
+    if (mode === 'rainfall' && mapRef.current) {
+      const center = mapRef.current.getCenter();
+      updateHeatmap(center.lat, center.lng);
+    } else if (heatmapLayer.current) {
+      mapRef.current.removeLayer(heatmapLayer.current);
+      heatmapLayer.current = null;
+    }
+  };
   
   return (
     <div className="leaflet-map-container">
@@ -262,7 +278,21 @@ function LeafletMap({ onSelectLocation }) {
       {showMap && (
         <div className="leaflet-map-modal">
           <div className="map-header">
-            <h3>世界地图</h3>
+            <h3>交互式地图</h3>
+            <div className="map-controls">
+              <button 
+                className={`mode-button ${mapMode === 'default' ? 'active' : ''}`}
+                onClick={() => changeMapMode('default')}
+              >
+                标准视图
+              </button>
+              <button 
+                className={`mode-button ${mapMode === 'rainfall' ? 'active' : ''}`}
+                onClick={() => changeMapMode('rainfall')}
+              >
+                降雨热图
+              </button>
+            </div>
             <button className="close-button" onClick={toggleMap}>×</button>
           </div>
           <div className="map-container">
@@ -270,7 +300,9 @@ function LeafletMap({ onSelectLocation }) {
           </div>
           <div className="map-footer">
             <p className="map-instruction">
-              点击地图上的任意位置查看该地区的降雨情况
+              {mapMode === 'default' 
+                ? '点击地图上的城市查看天气信息' 
+                : '点击地图上的任意位置查看该地区的降雨情况'}
             </p>
           </div>
         </div>

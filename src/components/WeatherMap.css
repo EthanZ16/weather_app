@@ -3,37 +3,41 @@
   display: inline-block;
 }
 
+.weather-map-container {
+  margin: 20px 0;
+  position: relative;
+}
+
 .map-button {
   background-color: #4a6cf7;
   color: white;
   border: none;
-  border-radius: 30px;
-  padding: 12px 25px;
+  border-radius: 8px;
+  padding: 10px 15px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .map-button:hover {
   background-color: #3a5ce5;
 }
 
-.map-container {
+.weather-map-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  max-width: 900px;
-  height: 85vh;
-  max-height: 700px;
+  max-width: 1000px;
+  height: 80vh;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -41,39 +45,38 @@
 }
 
 .map-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
   background-color: #f8f9fa;
 }
 
 .map-header h3 {
   margin: 0;
   color: #333;
-  flex: 1;
+  font-size: 1.2rem;
 }
 
 .map-controls {
   display: flex;
   gap: 10px;
-  margin-right: 15px;
+  margin: 0 20px;
 }
 
 .mode-button {
-  background-color: #e9ecef;
-  color: #495057;
+  padding: 8px 16px;
   border: none;
-  border-radius: 20px;
-  padding: 8px 15px;
-  font-size: 0.9rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #333;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .mode-button:hover {
-  background-color: #dee2e6;
+  background-color: #e0e0e0;
 }
 
 .mode-button.active {
@@ -93,67 +96,99 @@
   color: #333;
 }
 
-.map-content {
-  flex: 1;
-  padding: 20px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.map-draggable-container {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: #f0f8ff;
-}
-
-.world-map {
+.map-container {
   width: 100%;
   height: 100%;
-  cursor: grab;
-  transition: transform 0.3s ease;
-  touch-action: none; /* Prevents default touch actions */
+  min-height: 400px;
+  position: relative;
+  background-color: #f0f0f0;
 }
 
-.world-map:active {
-  cursor: grabbing;
+#map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-.map-instructions {
-  margin-top: 15px;
+.map-footer {
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+  font-size: 0.8rem;
   color: #666;
   text-align: center;
+}
+
+.map-instruction {
+  margin: 0;
+  color: #666;
   font-size: 0.9rem;
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 8px;
 }
 
-.map-loading,
-.map-error {
-  position: absolute;
-  top: 50%;
+.map-error-message {
+  position: fixed;
+  top: 20px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 15px 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  transform: translateX(-50%);
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  animation: fadeInOut 3s ease-in-out;
 }
 
-.map-error {
-  color: #dc3545;
-  border-left: 4px solid #dc3545;
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
-.map-loading {
-  color: #4a6cf7;
-  border-left: 4px solid #4a6cf7;
+/* Dark mode adaptation */
+.dark-mode .weather-map-modal {
+  background-color: #222;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .map-header,
+.dark-mode .map-footer {
+  background-color: #333;
+  border-color: #444;
+}
+
+.dark-mode .map-header h3 {
+  color: #eee;
+}
+
+.dark-mode .map-instruction,
+.dark-mode .map-footer {
+  color: #ccc;
+}
+
+.dark-mode .close-button {
+  color: #ccc;
+}
+
+.dark-mode .close-button:hover {
+  color: #fff;
+}
+
+.dark-mode .mode-button {
+  background-color: #444;
+  color: #ccc;
+}
+
+.dark-mode .mode-button:hover {
+  background-color: #555;
+}
+
+.dark-mode .mode-button.active {
+  background-color: #4a6cf7;
+  color: white;
 }
 
 /* City styling */

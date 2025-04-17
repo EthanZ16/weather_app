@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './WeatherMap.css';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.heat';
 import { worldMapData, worldCityCoordinates } from '../assets/world-map-data';
 import { fetchGlobalStormData, fetchRainfallHeatmap } from '../services/specialWeatherService';
 
@@ -12,25 +15,116 @@ function WeatherMap({ onSelectLocation }) {
   const [error, setError] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const mapRef = useRef(null);
-  const [mapPosition, setMapPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [startDragPosition, setStartDragPosition] = useState({ x: 0, y: 0 });
+  const heatmapLayer = useRef(null);
   
+  // Initialize map
+  useEffect(() => {
+    if (!showMap) return;
+
+    const initializeMap = async () => {
+      try {
+        if (!L) {
+          console.error('Leaflet library not loaded');
+          return;
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        const mapContainer = document.querySelector('.map-container');
+        if (!mapContainer) {
+          console.error('Map container not found');
+          return;
+        }
+
+        if (mapRef.current) {
+          mapRef.current.remove();
+        }
+
+        const mapDiv = document.createElement('div');
+        mapDiv.id = 'map';
+        mapDiv.style.height = '100%';
+        mapDiv.style.width = '100%';
+        mapContainer.innerHTML = '';
+        mapContainer.appendChild(mapDiv);
+
+        mapRef.current = L.map('map', {
+          center: [0, 0],
+          zoom: 2,
+          maxBounds: L.latLngBounds(
+            L.latLng(-90, -180),
+            L.latLng(90, 180)
+          ),
+          maxBoundsViscosity: 1.0
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors',
+          maxZoom: 18
+        }).addTo(mapRef.current);
+
+        // Add city markers
+        Object.entries(worldCityCoordinates).forEach(([key, city]) => {
+          const marker = L.marker([city.lat, city.lon])
+            .addTo(mapRef.current)
+            .bindPopup(city.name)
+            .on('click', () => {
+              handleCitySelect(city.name);
+            });
+        });
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const { latitude, longitude } = position.coords;
+              mapRef.current.setView([latitude, longitude], 13);
+              if (mapMode === 'rainfall') {
+                await updateHeatmap(latitude, longitude);
+              }
+            },
+            (error) => {
+              console.log('Geolocation error:', error);
+            }
+          );
+        }
+
+        mapRef.current.on('click', async (e) => {
+          const { lat, lng } = e.latlng;
+          if (mapMode === 'rainfall') {
+            await updateHeatmap(lat, lng);
+          }
+        });
+
+        console.log('Map initialized successfully');
+      } catch (error) {
+        console.error('Error initializing map:', error);
+      }
+    };
+
+    initializeMap();
+
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, [showMap, mapMode]);
+
   // Fetch storm data when map mode changes to 'storm'
   useEffect(() => {
     if (mapMode === 'storm' && stormData.length === 0) {
       fetchStormData();
     }
   }, [mapMode]);
-  
-  // Fetch rainfall data when a city is selected and map mode is 'rainfall'
+
+  // Fetch rainfall data when map mode changes to 'rainfall'
   useEffect(() => {
-    if (mapMode === 'rainfall' && selectedCity) {
-      fetchRainfallData(selectedCity);
+    if (mapMode === 'rainfall' && mapRef.current) {
+      const center = mapRef.current.getCenter();
+      updateHeatmap(center.lat, center.lng);
     }
-  }, [mapMode, selectedCity]);
-  
-  // Fetch global storm data
+  }, [mapMode]);
+
   const fetchStormData = async () => {
     try {
       setLoading(true);
@@ -44,315 +138,108 @@ function WeatherMap({ onSelectLocation }) {
       setLoading(false);
     }
   };
-  
-  // Fetch rainfall heatmap data for a specific city
-  const fetchRainfallData = async (city) => {
+
+  const updateHeatmap = async (lat, lng) => {
     try {
-      setLoading(true);
-      setError(null);
-      const cityData = worldCityCoordinates[city] || 
-                      Object.values(worldCityCoordinates).find(c => c.name === city);
-      
-      if (!cityData) {
-        throw new Error(`City data not found for ${city}`);
+      if (!mapRef.current) {
+        console.error('Map not initialized');
+        return;
       }
+
+      const data = await fetchRainfallHeatmap(lat, lng);
       
-      const data = await fetchRainfallHeatmap(cityData.lat, cityData.lon);
-      setRainfallData(data);
-    } catch (err) {
-      setError('Failed to load rainfall data. Please try again later.');
-      console.error('Error fetching rainfall data:', err);
-    } finally {
-      setLoading(false);
+      if (heatmapLayer.current) {
+        mapRef.current.removeLayer(heatmapLayer.current);
+      }
+
+      heatmapLayer.current = L.heatLayer(data, {
+        radius: 25,
+        blur: 15,
+        maxZoom: 10,
+        minOpacity: 0.5,
+        gradient: {
+          0.4: 'blue',
+          0.6: 'cyan',
+          0.7: 'lime',
+          0.8: 'yellow',
+          1.0: 'red'
+        }
+      }).addTo(mapRef.current);
+
+      console.log('Heatmap updated successfully');
+    } catch (error) {
+      console.error('Error updating heatmap:', error);
+      const errorMessage = document.createElement('div');
+      errorMessage.className = 'map-error-message';
+      errorMessage.textContent = '无法加载降雨数据，请稍后重试';
+      document.querySelector('.map-container').appendChild(errorMessage);
+      setTimeout(() => errorMessage.remove(), 3000);
     }
   };
 
-  // Handle map click event
-  const handleMapClick = (e) => {
-    if (isDragging) return; // Don't select city if dragging
-    
-    // Get click position relative to SVG
-    const svgElement = mapRef.current;
-    const rect = svgElement.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Find closest city
-    let closestCity = null;
-    let minDistance = Infinity;
-    
-    Object.entries(worldCityCoordinates).forEach(([key, city]) => {
-      const distance = Math.sqrt(Math.pow(x - city.x, 2) + Math.pow(y - city.y, 2));
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestCity = { key, ...city };
-      }
-    });
-    
-    // If click is within reasonable range of a city (50 pixels), select it
-    if (minDistance < 50 && closestCity) {
-      setSelectedCity(closestCity.key);
-      onSelectLocation(closestCity.name);
-      
-      // If in rainfall mode, fetch rainfall data for this city
-      if (mapMode === 'rainfall') {
-        fetchRainfallData(closestCity.key);
-      }
-    }
+  const handleCitySelect = (cityName) => {
+    setSelectedCity(cityName);
+    onSelectLocation(cityName);
   };
 
-  // Start dragging the map
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartDragPosition({
-      x: e.clientX - mapPosition.x,
-      y: e.clientY - mapPosition.y
-    });
-  };
-
-  // Drag the map
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    
-    setMapPosition({
-      x: e.clientX - startDragPosition.x,
-      y: e.clientY - startDragPosition.y
-    });
-  };
-
-  // Stop dragging the map
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // Toggle map display
   const toggleMap = () => {
     setShowMap(!showMap);
   };
 
-  // Change map mode
   const changeMapMode = (mode) => {
     setMapMode(mode);
+    if (mode === 'rainfall' && mapRef.current) {
+      const center = mapRef.current.getCenter();
+      updateHeatmap(center.lat, center.lng);
+    } else if (heatmapLayer.current) {
+      mapRef.current.removeLayer(heatmapLayer.current);
+      heatmapLayer.current = null;
+    }
   };
-
+  
   return (
-    <div className="weather-map">
-      <button 
-        className="map-button" 
-        onClick={toggleMap}
-        aria-label="Open Interactive Weather Map"
-      >
-        🗺️ Interactive Weather Map
+    <div className="weather-map-container">
+      <button className="map-button" onClick={toggleMap}>
+        {showMap ? '隐藏地图' : '显示地图'}
       </button>
       
       {showMap && (
-        <div className="map-container">
+        <div className="weather-map-modal">
           <div className="map-header">
-            <h3>Interactive Weather Map</h3>
+            <h3>交互式天气地图</h3>
             <div className="map-controls">
               <button 
                 className={`mode-button ${mapMode === 'default' ? 'active' : ''}`}
                 onClick={() => changeMapMode('default')}
               >
-                Standard View
+                标准视图
               </button>
               <button 
                 className={`mode-button ${mapMode === 'storm' ? 'active' : ''}`}
                 onClick={() => changeMapMode('storm')}
               >
-                Global Storm Paths
+                全球风暴路径
               </button>
               <button 
                 className={`mode-button ${mapMode === 'rainfall' ? 'active' : ''}`}
                 onClick={() => changeMapMode('rainfall')}
               >
-                Rainfall Heatmap
+                降雨热图
               </button>
             </div>
-            <button className="close-button" onClick={() => setShowMap(false)}>×</button>
+            <button className="close-button" onClick={toggleMap}>×</button>
           </div>
-          
-          <div className="map-content">
-            {loading && <div className="map-loading">Loading weather data...</div>}
-            {error && <div className="map-error">{error}</div>}
-            
-            <div 
-              className="map-draggable-container"
-              style={{
-                cursor: isDragging ? 'grabbing' : 'grab'
-              }}
-            >
-              <svg 
-                ref={mapRef}
-                viewBox="0 0 1000 600" 
-                onClick={handleMapClick}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseUp}
-                className="world-map"
-                style={{
-                  transform: `translate(${mapPosition.x}px, ${mapPosition.y}px)`,
-                  transition: isDragging ? 'none' : 'transform 0.3s ease'
-                }}
-              >
-                {/* World map outline */}
-                <path 
-                  d={worldMapData.outline}
-                  fill="#f8f9fa"
-                  stroke="#4a6cf7"
-                  strokeWidth="1.5"
-                />
-                
-                {/* Continents */}
-                {Object.entries(worldMapData.continents).map(([key, path]) => (
-                  <path 
-                    key={key}
-                    d={path}
-                    fill="#f8f9fa" 
-                    stroke="#4a6cf7" 
-                    strokeWidth="1.5" 
-                  />
-                ))}
-                
-                {/* Rainfall heatmap overlay */}
-                {mapMode === 'rainfall' && rainfallData.length > 0 && (
-                  <g className="rainfall-heatmap">
-                    {rainfallData.map((point, index) => {
-                      // Convert lat/lon to x/y coordinates (simplified)
-                      const x = ((point.lon + 180) / 360) * 1000;
-                      const y = ((90 - point.lat) / 180) * 600;
-                      
-                      // Calculate color based on rainfall value (0-10)
-                      const value = parseFloat(point.value);
-                      const intensity = Math.min(value / 10, 1);
-                      const blue = Math.floor(255 * intensity);
-                      
-                      return (
-                        <circle 
-                          key={index}
-                          cx={x}
-                          cy={y}
-                          r={Math.max(2, value * 1.5)}
-                          fill={`rgba(0, 100, ${blue}, ${intensity * 0.7})`}
-                          opacity="0.7"
-                        />
-                      );
-                    })}
-                  </g>
-                )}
-                
-                {/* Storm paths overlay */}
-                {mapMode === 'storm' && stormData.length > 0 && (
-                  <g className="storm-paths">
-                    {stormData.map(storm => {
-                      // Create path points from storm data
-                      const pathPoints = storm.path.map(point => {
-                        // Convert lat/lon to x/y coordinates (simplified)
-                        const x = ((point.lon + 180) / 360) * 1000;
-                        const y = ((90 - point.lat) / 180) * 600;
-                        return `${x},${y}`;
-                      }).join(' ');
-                      
-                      // Create forecast path points
-                      const forecastPoints = storm.forecastPath.map(point => {
-                        const x = ((point.lon + 180) / 360) * 1000;
-                        const y = ((90 - point.lat) / 180) * 600;
-                        return `${x},${y}`;
-                      }).join(' ');
-                      
-                      // Get current position
-                      const currentX = ((storm.currentPosition.lon + 180) / 360) * 1000;
-                      const currentY = ((90 - storm.currentPosition.lat) / 180) * 600;
-                      
-                      return (
-                        <g key={storm.id} className="storm">
-                          {/* Historical path */}
-                          <polyline 
-                            points={pathPoints} 
-                            fill="none" 
-                            stroke="#ff5722" 
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          
-                          {/* Forecast path (dashed) */}
-                          <polyline 
-                            points={forecastPoints} 
-                            fill="none" 
-                            stroke="#ff9800" 
-                            strokeWidth="2"
-                            strokeDasharray="5,5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          
-                          {/* Current position */}
-                          <circle 
-                            cx={currentX} 
-                            cy={currentY} 
-                            r="8" 
-                            fill="#ff5722" 
-                            stroke="#fff"
-                            strokeWidth="2"
-                          />
-                          
-                          {/* Storm name */}
-                          <text 
-                            x={currentX} 
-                            y={currentY - 15} 
-                            fontSize="12" 
-                            fontWeight="bold"
-                            fill="#333"
-                            textAnchor="middle"
-                          >
-                            {storm.name} (Cat. {storm.category})
-                          </text>
-                        </g>
-                      );
-                    })}
-                  </g>
-                )}
-                
-                {/* City markers */}
-                {Object.entries(worldCityCoordinates).map(([key, city]) => (
-                  <g key={key} className={selectedCity === key ? 'city selected' : 'city'}>
-                    <circle 
-                      cx={city.x} 
-                      cy={city.y} 
-                      r={selectedCity === key ? "7" : "4"} 
-                      fill={selectedCity === key ? "#ff5722" : "#4a6cf7"} 
-                      stroke="#fff"
-                      strokeWidth="1"
-                    />
-                    <text 
-                      x={city.x} 
-                      y={city.y - 10} 
-                      fontSize="12" 
-                      textAnchor="middle" 
-                      fill="#333"
-                      opacity={selectedCity === key ? "1" : "0.7"}
-                      fontWeight={selectedCity === key ? "bold" : "normal"}
-                    >
-                      {city.name}
-                    </text>
-                  </g>
-                ))}
-              </svg>
-            </div>
-            
-            <div className="map-instructions">
-              {mapMode === 'default' && (
-                <p>Click on a city to get weather information. Drag to explore the map.</p>
-              )}
-              {mapMode === 'storm' && (
-                <p>Viewing global storm paths. Red lines show historical paths, orange dashed lines show forecasted paths.</p>
-              )}
-              {mapMode === 'rainfall' && (
-                <p>Click on a city to view rainfall intensity in the surrounding region. Darker blue indicates heavier rainfall.</p>
-              )}
-            </div>
+          <div className="map-container">
+            <div id="map"></div>
+          </div>
+          <div className="map-footer">
+            <p className="map-instruction">
+              {mapMode === 'default' 
+                ? '点击地图上的城市查看天气信息' 
+                : mapMode === 'storm'
+                ? '查看全球风暴路径。红色线条显示历史路径，橙色虚线显示预测路径。'
+                : '点击地图上的任意位置查看该地区的降雨情况。深蓝色表示降雨量较大。'}
+            </p>
           </div>
         </div>
       )}
