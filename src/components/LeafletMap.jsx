@@ -13,17 +13,26 @@ function LeafletMap({ onSelectLocation }) {
     if (showMap && !leafletMapRef.current) {
       // Ensure Leaflet library is loaded
       if (window.L) {
-        // Create map instance
-        leafletMapRef.current = window.L.map(mapRef.current).setView([20, 0], 2);
-        
-        // Add OpenStreetMap tile layer
-        window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          maxZoom: 18,
-        }).addTo(leafletMapRef.current);
-        
-        // Add markers for major world cities
-        addCityMarkers();
+        try {
+          // Create map instance with error handling
+          leafletMapRef.current = window.L.map(mapRef.current, {
+            center: [20, 0],
+            zoom: 2,
+            maxBounds: [[-90, -180], [90, 180]], // 限制地图边界
+            maxBoundsViscosity: 1.0
+          });
+          
+          // Add OpenStreetMap tile layer
+          window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+          }).addTo(leafletMapRef.current);
+          
+          // Add markers for major world cities
+          addCityMarkers();
+        } catch (error) {
+          console.error('Error initializing map:', error);
+        }
       }
     }
     
@@ -93,6 +102,42 @@ function LeafletMap({ onSelectLocation }) {
   // Toggle map display state
   const toggleMap = () => {
     setShowMap(!showMap);
+  };
+  
+  const fetchRainfallData = async (lat, lng) => {
+    try {
+      const apiKey = import.meta.env.VITE_APP_WEATHER_API_KEY;
+      if (!apiKey) {
+        throw new Error('API key is missing');
+      }
+
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`
+      );
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // 验证数据格式
+      if (!data.list || !Array.isArray(data.list)) {
+        throw new Error('Invalid data format received from API');
+      }
+
+      // 处理降雨量数据
+      const rainfallData = data.list.map(item => ({
+        lat,
+        lng,
+        value: item.rain ? item.rain['3h'] || 0 : 0
+      }));
+
+      return rainfallData;
+    } catch (error) {
+      console.error('Error fetching rainfall data:', error);
+      return [];
+    }
   };
   
   return (
