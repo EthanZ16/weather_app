@@ -1,5 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './LeafletMap.css';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.heat';
 
 // LeafletMap component - Using Leaflet library to implement a real interactive world map
 function LeafletMap({ onSelectLocation }) {
@@ -7,9 +10,11 @@ function LeafletMap({ onSelectLocation }) {
   const mapRef = useRef(null);
   const leafletMapRef = useRef(null);
   const [selectedCity, setSelectedCity] = useState(null);
+  const heatmapLayer = useRef(null);
   
   // Initialize map
   useEffect(() => {
+<<<<<<< Updated upstream
     if (showMap && !leafletMapRef.current) {
       // Ensure Leaflet library is loaded
       if (window.L) {
@@ -33,14 +38,70 @@ function LeafletMap({ onSelectLocation }) {
         } catch (error) {
           console.error('Error initializing map:', error);
         }
+=======
+    if (!showMap) return;
+
+    const initializeMap = async () => {
+      try {
+        if (!L) {
+          console.error('Leaflet library not loaded');
+          return;
+        }
+
+        if (!mapRef.current) {
+          const mapContainer = document.getElementById('map');
+          if (!mapContainer) {
+            console.error('Map container not found');
+            return;
+          }
+
+          // 初始化地图，使用世界中心点
+          mapRef.current = L.map('map', {
+            center: [0, 0],
+            zoom: 2,
+            maxBounds: L.latLngBounds(
+              L.latLng(-90, -180),
+              L.latLng(90, 180)
+            )
+          });
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+          }).addTo(mapRef.current);
+
+          // 尝试获取用户位置
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              async (position) => {
+                const { latitude, longitude } = position.coords;
+                mapRef.current.setView([latitude, longitude], 13);
+                await updateHeatmap(latitude, longitude);
+              },
+              (error) => {
+                console.log('Geolocation error:', error);
+                // 如果无法获取位置，保持世界视图
+              }
+            );
+          }
+
+          // 添加点击事件处理
+          mapRef.current.on('click', async (e) => {
+            const { lat, lng } = e.latlng;
+            await updateHeatmap(lat, lng);
+          });
+        }
+      } catch (error) {
+        console.error('Error initializing map:', error);
+>>>>>>> Stashed changes
       }
-    }
-    
-    // Clean up map instance when component unmounts
+    };
+
+    initializeMap();
+
     return () => {
-      if (leafletMapRef.current) {
-        leafletMapRef.current.remove();
-        leafletMapRef.current = null;
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
       }
     };
   }, [showMap]);
@@ -102,6 +163,90 @@ function LeafletMap({ onSelectLocation }) {
   // Toggle map display state
   const toggleMap = () => {
     setShowMap(!showMap);
+  };
+
+  const fetchRainfallData = async (lat, lng) => {
+    try {
+      const apiKey = import.meta.env.VITE_APP_WEATHER_API_KEY;
+      if (!apiKey) {
+        throw new Error('API key is missing');
+      }
+
+      // 验证坐标是否有效
+      if (isNaN(lat) || isNaN(lng)) {
+        throw new Error('Invalid coordinates');
+      }
+
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`
+      );
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (!data.list || !Array.isArray(data.list)) {
+        throw new Error('Invalid data format received from API');
+      }
+
+      // 处理降雨量数据，确保所有值都是有效的数字
+      const rainfallData = data.list.map(item => ({
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+        value: item.rain ? parseFloat(item.rain['3h'] || 0) : 0
+      }));
+
+      return rainfallData;
+    } catch (error) {
+      console.error('Error fetching rainfall data:', error);
+      return [];
+    }
+  };
+
+  const updateHeatmap = async (lat, lng) => {
+    try {
+      if (!mapRef.current) {
+        console.error('Map not initialized');
+        return;
+      }
+
+      // 验证坐标是否有效
+      if (isNaN(lat) || isNaN(lng)) {
+        console.error('Invalid coordinates for heatmap update');
+        return;
+      }
+
+      const data = await fetchRainfallData(lat, lng);
+      
+      if (data.length === 0) {
+        console.error('No rainfall data available');
+        return;
+      }
+
+      if (heatmapLayer.current) {
+        mapRef.current.removeLayer(heatmapLayer.current);
+      }
+
+      heatmapLayer.current = L.heatLayer(data, {
+        radius: 25,
+        blur: 15,
+        maxZoom: 10,
+        minOpacity: 0.5,
+        gradient: {
+          0.4: 'blue',
+          0.6: 'cyan',
+          0.7: 'lime',
+          0.8: 'yellow',
+          1.0: 'red'
+        }
+      }).addTo(mapRef.current);
+
+      console.log('Heatmap updated successfully');
+    } catch (error) {
+      console.error('Error updating heatmap:', error);
+    }
   };
   
   const fetchRainfallData = async (lat, lng) => {
