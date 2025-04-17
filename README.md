@@ -187,6 +187,16 @@
    - Version rollback mechanism (can roll back within a certain period of time to avoid code errors leading to wrong version releases)
 
 ## Team members and contributions
+## Project Timeline
+| Phase                        | Time      | Deliverables                     |
+|------------------------------|-----------|-----------------------------------|
+| Requirements Analysis         | Week 1    | Requirements Document             |
+| UI Design                     | Week 2    | Design Draft                      |
+| Core Function Development     | Week 3-4  | Basic Weather Query Function      |
+| Enhancement Development       | Week 5    | Forecasts, Maps, and More         |
+| UI/UX Improvement             | Week 6    | Theme System, Responsive Design   |
+| Testing and Optimization      | Week 7    | Stable Version                    |
+| Deployment and Launch         | Week 8    | Production Environment            |
 
 ## Algorithm
  - Temperature Conversion Algorithm: Convert Kelvin temperature to Celsius by subtracting 273.15 and rounding to an integer result.
