@@ -15,6 +15,7 @@ function LeafletMap({ onSelectLocation }) {
   // Initialize map
   useEffect(() => {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     if (showMap && !leafletMapRef.current) {
       // Ensure Leaflet library is loaded
       if (window.L) {
@@ -39,6 +40,8 @@ function LeafletMap({ onSelectLocation }) {
           console.error('Error initializing map:', error);
         }
 =======
+=======
+>>>>>>> Stashed changes
     if (!showMap) return;
 
     const initializeMap = async () => {
@@ -92,6 +95,9 @@ function LeafletMap({ onSelectLocation }) {
         }
       } catch (error) {
         console.error('Error initializing map:', error);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       }
     };
@@ -248,6 +254,7 @@ function LeafletMap({ onSelectLocation }) {
       console.error('Error updating heatmap:', error);
     }
   };
+<<<<<<< Updated upstream
   
   const fetchRainfallData = async (lat, lng) => {
     try {
@@ -284,6 +291,8 @@ function LeafletMap({ onSelectLocation }) {
       return [];
     }
   };
+=======
+>>>>>>> Stashed changes
   
   return (
     <div className="leaflet-map-container">
