@@ -5,18 +5,6 @@ import 'leaflet/dist/leaflet.css';
 import { worldMapData, worldCityCoordinates } from '../assets/world-map-data';
 import { fetchGlobalStormData, fetchRainfallHeatmap } from '../services/specialWeatherService';
 
-// 动态加载 leaflet.heat
-useEffect(() => {
-  const script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js';
-  script.async = true;
-  document.body.appendChild(script);
-  
-  return () => {
-    document.body.removeChild(script);
-  };
-}, []);
-
 function WeatherMap({ onSelectLocation }) {
   const [showMap, setShowMap] = useState(false);
   const [mapMode, setMapMode] = useState('default'); // 'default', 'storm', 'rainfall'
@@ -27,10 +15,28 @@ function WeatherMap({ onSelectLocation }) {
   const [selectedCity, setSelectedCity] = useState(null);
   const mapRef = useRef(null);
   const heatmapLayer = useRef(null);
+  const [mapInitialized, setMapInitialized] = useState(false);
+  
+  // 动态加载 leaflet.heat
+  useEffect(() => {
+    if (showMap && !mapInitialized) {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js';
+      script.async = true;
+      script.onload = () => {
+        setMapInitialized(true);
+      };
+      document.body.appendChild(script);
+      
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [showMap, mapInitialized]);
   
   // Initialize map
   useEffect(() => {
-    if (!showMap) return;
+    if (!showMap || !mapInitialized) return;
 
     const initializeMap = async () => {
       try {
@@ -119,7 +125,7 @@ function WeatherMap({ onSelectLocation }) {
         mapRef.current = null;
       }
     };
-  }, [showMap, mapMode]);
+  }, [showMap, mapMode, mapInitialized]);
 
   // Fetch storm data when map mode changes to 'storm'
   useEffect(() => {
@@ -157,29 +163,30 @@ function WeatherMap({ onSelectLocation }) {
         return;
       }
 
+      if (!window.L.heatLayer) {
+        console.error('Heat layer plugin not loaded');
+        return;
+      }
+
       const data = await fetchRainfallHeatmap(lat, lng);
       
       if (heatmapLayer.current) {
         mapRef.current.removeLayer(heatmapLayer.current);
       }
 
-      // 使用 Leaflet 的 CircleMarker 来模拟热图效果
-      const markers = data.map(point => {
-        const value = parseFloat(point.value);
-        const radius = Math.max(5, value * 5);
-        const opacity = Math.min(0.7, value / 10);
-        
-        return L.circleMarker([point.lat, point.lng], {
-          radius: radius,
-          fillColor: getColor(value),
-          color: '#fff',
-          weight: 1,
-          opacity: 1,
-          fillOpacity: opacity
-        });
-      });
-
-      heatmapLayer.current = L.layerGroup(markers).addTo(mapRef.current);
+      heatmapLayer.current = window.L.heatLayer(data, {
+        radius: 25,
+        blur: 15,
+        maxZoom: 10,
+        minOpacity: 0.5,
+        gradient: {
+          0.4: 'blue',
+          0.6: 'cyan',
+          0.7: 'lime',
+          0.8: 'yellow',
+          1.0: 'red'
+        }
+      }).addTo(mapRef.current);
 
       console.log('Heatmap updated successfully');
     } catch (error) {
