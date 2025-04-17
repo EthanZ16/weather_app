@@ -23,50 +23,66 @@ function LeafletMap({ onSelectLocation }) {
           return;
         }
 
-        if (!mapRef.current) {
-          // 创建地图容器
-          const mapContainer = document.createElement('div');
-          mapContainer.id = 'map';
-          mapContainer.style.height = '100%';
-          mapContainer.style.width = '100%';
-          document.querySelector('.map-container').appendChild(mapContainer);
+        // 等待 DOM 更新完成
+        await new Promise(resolve => setTimeout(resolve, 0));
 
-          // 初始化地图
-          mapRef.current = L.map('map', {
-            center: [0, 0],
-            zoom: 2,
-            maxBounds: L.latLngBounds(
-              L.latLng(-90, -180),
-              L.latLng(90, 180)
-            )
-          });
-
-          // 添加地图图层
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 18
-          }).addTo(mapRef.current);
-
-          // 尝试获取用户位置
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              async (position) => {
-                const { latitude, longitude } = position.coords;
-                mapRef.current.setView([latitude, longitude], 13);
-                await updateHeatmap(latitude, longitude);
-              },
-              (error) => {
-                console.log('Geolocation error:', error);
-              }
-            );
-          }
-
-          // 添加点击事件处理
-          mapRef.current.on('click', async (e) => {
-            const { lat, lng } = e.latlng;
-            await updateHeatmap(lat, lng);
-          });
+        const mapContainer = document.querySelector('.map-container');
+        if (!mapContainer) {
+          console.error('Map container not found');
+          return;
         }
+
+        // 如果地图已经存在，先移除
+        if (mapRef.current) {
+          mapRef.current.remove();
+        }
+
+        // 创建新的地图容器
+        const mapDiv = document.createElement('div');
+        mapDiv.id = 'map';
+        mapDiv.style.height = '100%';
+        mapDiv.style.width = '100%';
+        mapContainer.innerHTML = '';
+        mapContainer.appendChild(mapDiv);
+
+        // 初始化地图
+        mapRef.current = L.map('map', {
+          center: [0, 0],
+          zoom: 2,
+          maxBounds: L.latLngBounds(
+            L.latLng(-90, -180),
+            L.latLng(90, 180)
+          ),
+          maxBoundsViscosity: 1.0
+        });
+
+        // 添加地图图层
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors',
+          maxZoom: 18
+        }).addTo(mapRef.current);
+
+        // 尝试获取用户位置
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const { latitude, longitude } = position.coords;
+              mapRef.current.setView([latitude, longitude], 13);
+              await updateHeatmap(latitude, longitude);
+            },
+            (error) => {
+              console.log('Geolocation error:', error);
+            }
+          );
+        }
+
+        // 添加点击事件处理
+        mapRef.current.on('click', async (e) => {
+          const { lat, lng } = e.latlng;
+          await updateHeatmap(lat, lng);
+        });
+
+        console.log('Map initialized successfully');
       } catch (error) {
         console.error('Error initializing map:', error);
       }
@@ -78,10 +94,6 @@ function LeafletMap({ onSelectLocation }) {
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
-      }
-      const mapContainer = document.getElementById('map');
-      if (mapContainer) {
-        mapContainer.remove();
       }
     };
   }, [showMap]);
@@ -241,7 +253,9 @@ function LeafletMap({ onSelectLocation }) {
             <h3>世界地图</h3>
             <button className="close-button" onClick={toggleMap}>×</button>
           </div>
-          <div className="map-container"></div>
+          <div className="map-container">
+            <div id="map"></div>
+          </div>
           <div className="map-footer">
             <p className="map-instruction">
               点击地图上的任意位置查看该地区的降雨情况

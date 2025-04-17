@@ -1,5 +1,6 @@
 .leaflet-map-container {
   margin: 20px 0;
+  position: relative;
 }
 
 .map-button {
@@ -128,6 +129,7 @@
   height: 100%;
   min-height: 400px;
   position: relative;
+  background-color: #f0f0f0;
 }
 
 #map {
@@ -136,4 +138,5 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
