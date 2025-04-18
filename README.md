@@ -1,6 +1,6 @@
 # Weather Query Website
 ## Graphical Abstract
-![Weather Map](./public/weather%20map.png)
+![Weather Map](./public/weather%20map.svg)
 ## Purpose of the software
 ### ◦ Software development process:Agile
 ### ◦ Reasons
