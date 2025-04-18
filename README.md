@@ -34,23 +34,15 @@
    - The data access layer focuses on data storage and retrieval, with core components including: a third-party API interface connected to OpenWeatherMap, a browser localStorage-based local storage system, an intelligent caching mechanism with TTL management, and a data encryption module that ensures security. This layer provides stable and reliable data support for the upper business logic while ensuring the security of users' sensitive information.
 
 ####  ▪ Define the Principal System Objects
-*Weather data objects*
-- CurrentWeather (current weather), Forecast (weather forecast), WeatherAlert (weather alert), etc. These objects store and process weather information obtained from APIs.
-*User interface components*
-- SearchBar (search bar), map components (LeafletMap, InteractiveMap, UnifiedMap), etc., responsible for user interaction and data visualization.
-
-*Service objects*
-- weatherService, specialWeatherService, etc., responsible for communicating with external APIs and processing data.
+   - Weather data objects：CurrentWeather (current weather), Forecast (weather forecast), WeatherAlert (weather alert), etc. These objects store and process weather information obtained from APIs.
+   - User interface components：SearchBar (search bar), map components (LeafletMap, InteractiveMap, UnifiedMap), etc., responsible for user interaction and data visualization.
+   - Service objects：weatherService, specialWeatherService, etc., responsible for communicating with external APIs and processing data.
 
 ####  ▪ Develop Design Models
-   *Data model*
-   - defines how to store and organize weather data (temperature, humidity, wind speed, etc.)
-   *View model*
-   - determines how to display weather information on the interface (current weather, forecast, map components, etc.)
-   *Interaction model*
-   - plans how users interact with the weather application (searching for cities, switching views, etc.)
-   *Responsive model*
-   - ensures that the web page displays well on different devices
+   - Data model：defines how to store and organize weather data (temperature, humidity, wind speed, etc.)
+   - View model：determines how to display weather information on the interface (current weather, forecast, map components, etc.)
+   - Interaction model：plans how users interact with the weather application (searching for cities, switching views, etc.)
+   - Responsive model：ensures that the web page displays well on different devices
 
 ####  ▪ Object Interfaces
    - WeatherData interface：Provides access methods for weather data, including getting the current temperature (returning a numerical value in degrees Celsius), wind speed level (such as the string "breeze"), and multi-day forecast data (returning an array of date, maximum/minimum temperature).
