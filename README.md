@@ -42,6 +42,7 @@
 - CurrentWeather (current weather), Forecast (weather forecast), WeatherAlert (weather alert), etc. These objects store and process weather information obtained from APIs.
 *User interface components*
 - SearchBar (search bar), map components (LeafletMap, InteractiveMap, UnifiedMap), etc., responsible for user interaction and data visualization.
+
 *Service objects*
 - weatherService, specialWeatherService, etc., responsible for communicating with external APIs and processing data.
 
