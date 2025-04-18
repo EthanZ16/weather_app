@@ -71,10 +71,10 @@
    - The operational support system is equally critical. We have established a multi-layered monitoring framework that comprehensively tracks system performance, from front-end performance metrics to back-end API health checks. The deployment process employs a blue-green strategy with rapid rollback capabilities. A real-time log analysis platform tracks anomalies, working in tandem with automated test suites to maintain system failure rates at minimal levels. Through these technical safeguards, we can deliver highly available weather information services to users while laying a solid foundation for future feature iterations.
 
 ## Team members and contributions
- ◦LI MANXIN
-▪ Project Manager + Software Designer
-▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time
-▪ portion:
+ ◦LI MANXIN<br>
+▪ Project Manager + Software Designer<br>
+▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time<br>
+▪ portion:<br>
    -Complete some source codes
    -Design the main structure of the web page
    -Improve the readme file
