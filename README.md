@@ -79,37 +79,29 @@
    -Design the main structure of the web page
    -Improve the readme file
 
- ◦SHEN YAOYI
- 
-▪ Project Manager + Software Designer and Maintainer:
-
-▪ In addition to project management and design responsibilities, also responsible for the long-term maintenance of the system, bug fixing, and functional updates to ensure the stable operation of the system.
-
-▪ portion:
+ ◦SHEN YAOYI<br>
+▪ Project Manager + Software Designer and Maintainer:<br>
+▪ In addition to project management and design responsibilities, also responsible for the long-term maintenance of the system, bug fixing, and functional updates to ensure the stable operation of the system.<br>
+▪ portion:<br>
    - Complete the remaining source code
    - Improve the functions of the web page
    - Maintenance work after the completion of the web page
 
- ◦ZHANG YUCHEN
- 
-▪ Project Manager + Software Designer and Tester
-
-▪ Combining project management, design and testing responsibilities, responsible for formulating test plans, executing test cases and verifying whether system functions meet requirements.
-▪ portion:
+ ◦ZHANG YUCHEN<br>
+▪ Project Manager + Software Designer and Tester<br>
+▪ Combining project management, design and testing responsibilities, responsible for formulating test plans, executing test cases and verifying whether system functions meet requirements.<br>
+▪ portion:<br>
    - Improve the source code
    - Formulate a test plan
    - Test web page
 
-  ◦ZHANG YUERAN
-  
-▪ Project Manager + Software Tester and Analyst
-
-▪ Focused on project management, system testing and data analysis, responsible for collecting user feedback, analyzing system performance and proposing improvement suggestions.
-
-▪ portion:
+  ◦ZHANG YUERAN<br>
+▪ Project Manager + Software Tester and Analyst<br>
+▪ Focused on project management, system testing and data analysis, responsible for collecting user feedback, analyzing system performance and proposing improvement suggestions.<br>
+▪ portion:<br>
    - Further test the web page functions
    - Analyze web pages
-   -vComplete the readme file
+   - Complete the readme file
 
 ## Project Schedule
 | Phase                        | Time      | Deliverables                     |
