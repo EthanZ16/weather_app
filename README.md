@@ -1,15 +1,15 @@
 # Weather Query Website
-
 ## Graphical Abstract
+
 ## Purpose of the software
 ### ◦ Software development process:Agile
-### ○ Reasons
+### ◦ Reasons
    - Weather query system is a widely used software. Its competitors are not only other weather software, but also the weather query system that comes with the mobile phone. If we want to seize the first opportunity in the market, we need to achieve Time to Market.
    - Requirements change with user feedback: Initially we only considered basic data, but as development progresses, users may also have strong demands for other indices such as customs and air pressure.
    - Allows for phased delivery of core functionality: We can first complete the most basic "city search + weather display" function, and then gradually complete the implementation of functions such as 24-hour weather forecast, five-day weather forecast, historical weather, etc.
    - Facilitates rapid iteration and adjustment of feature priorities: The agile development process allows us to adjust the order of feature development according to the urgency of customer needs and better respond to market demands.
    - Suitable for small development team collaboration: Small teams are more flexible and creative, and members can communicate with each other in a timely manner, all of which are more in line with the characteristics of agile development processes.
-### ○ Software Type and Target Market
+### ◦ Software Type and Target Market
    **Software Type:**
    - The software we developed is a comprehensive weather query web application, mainly for users who need to check the weather in real time.
 
@@ -20,11 +20,11 @@
    - Students and office workers who check the weather in the morning to decide what to wear.
 
 ## Development Process
-### Requirement Engineering:
+### ◦ Requirement Engineering:
    - Before initiating this project, we conducted market research to analyze user needs for weather applications. Our findings revealed that daily commuters primarily require real-time weather updates and short-term forecasts, while outdoor sports enthusiasts and weather hobbyists need professional meteorological data such as wind speed, air pressure, and visibility. Travelers, on the other hand, often need to compare weather conditions across multiple cities and access long-term weather trend data for trip planning. Additionally, through continuous feature updates and enhancements, we can attract a broader range of user demographics.
    - The weather application we are developing integrates multiple practical features. Core must-have functionalities include: city search, real-time weather display (basic information such as temperature, humidity, visibility, and weather icons), and 24-hour forecasts. Key features consist of 5-day weather forecasts, weather sharing, weather comments, weather favorites, solar term displays, and other engaging weather-related information. Extended functionalities cover an interactive map (clicking on coordinates to view local weather, global storm tracks, and rainfall heatmaps). Future updates may introduce more comprehensive interactive weather maps, global storm tracking, rainfall heatmaps, and health impact alerts related to weather conditions.
    - From a technical requirements perspective, our primary focus areas include: API selection, multi-client adaptation solutions, and data update frequency strategies as critical technical considerations.
-### ○ Software Design and Implementation
+### ◦ Software Design and Implementation
 #### ▪ Define the context and modes of use of the system
    *Context*
     - The weather query website is a web-based application that mainly provides users with real-time weather information, weather forecasts, and meteorological data visualization. The system obtains weather data by calling the OpenWeatherMap API and displays it to users on the front end. Users can access the website through a browser and enter a city name or automatically detect a location to query the weather.
@@ -92,7 +92,7 @@
  - Data interpolation algorithm: Convert 3-hour interval weather data into hourly data for 24-hour weather forecast display.
 
 ## Current Status
-#### ▪Completed Features
+#### ◦Completed Features
   - City weather search function: supports multiple query methods
   - Current weather display: including temperature, humidity, wind speed, air pressure, wind speed and other basic information.
   - Interactive communication: Share, save, and comment on the current city's weather.
@@ -101,28 +101,28 @@
   - Fun Weather Forecast: The solar term of the current date, the highest and lowest temperatures of the current week, the weather on this day in history, and the predicted time of the next meteor shower.
   - Theme switching: Free switching between two themes is realized, optimizing the visual experience.
 
-#### ▪Functions that are constantly being improved
+#### ◦Functions that are constantly being improved
   - Interactive map optimization: The basic map display and clickable city coordinates have been completed, and optimization will continue. For example, regional weather overview, mobile gesture support optimization, etc.
 
-#### ▪Currently, the test coverage of various functions has reached 75%.
+#### ◦Currently, the test coverage of various functions has reached 75%.
 
 ## Future Plans
-#### ▪Added Air Quality Index (AQI) display
+#### ◦Added Air Quality Index (AQI) display
   - For example, the system obtains the index of relevant air pollutants and rates the air quality according to the corresponding evaluation criteria (heavy pollution, light pollution, good, excellent).
 
-#### ▪Implement weather data caching to reduce API calls
+#### ◦Implement weather data caching to reduce API calls
   - Add caching function to the software, reduce the number of API calls and shorten the response time
 
-#### ▪Add weather alerts
+#### ◦Add weather alerts
   - Different alert levels (prompt, concern, warning, emergency) are divided according to the impact of the weather, and different types of notifications are sent to customers according to the alert level.
 
-#### ▪Added automatic detection of user location
+#### ◦Added automatic detection of user location
   - If the user turns on "Location information access permission", the system will automatically obtain the current location and return detailed weather information at the user's coordinates.
 
-#### ▪Support more language localization
+#### ◦Support more language localization
   - To adapt to users in different countries and regions, we will continue to update the software language system to support multiple languages.
 
-#### ▪Develop mobile app version
+#### ◦Develop mobile app version
   - The current software can realize web page query. In order to optimize the experience and take care of the majority of mobile users, we will try to develop a mobile application version to facilitate users.
 
 
