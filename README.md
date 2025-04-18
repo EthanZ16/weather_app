@@ -92,7 +92,7 @@
  - Data interpolation algorithm: Convert 3-hour interval weather data into hourly data for 24-hour weather forecast display.
 
 ## Current Status
-#### ◦Completed Features
+#### ▪Completed Features
   - City weather search function: supports multiple query methods
   - Current weather display: including temperature, humidity, wind speed, air pressure, wind speed and other basic information.
   - Interactive communication: Share, save, and comment on the current city's weather.
@@ -101,28 +101,28 @@
   - Fun Weather Forecast: The solar term of the current date, the highest and lowest temperatures of the current week, the weather on this day in history, and the predicted time of the next meteor shower.
   - Theme switching: Free switching between two themes is realized, optimizing the visual experience.
 
-#### ◦Functions that are constantly being improved
+#### ▪Functions that are constantly being improved
   - Interactive map optimization: The basic map display and clickable city coordinates have been completed, and optimization will continue. For example, regional weather overview, mobile gesture support optimization, etc.
 
-#### ◦Currently, the test coverage of various functions has reached 75%.
+#### ▪Currently, the test coverage of various functions has reached 75%.
 
 ## Future Plans
-#### ◦Added Air Quality Index (AQI) display
+#### ▪Added Air Quality Index (AQI) display
   - For example, the system obtains the index of relevant air pollutants and rates the air quality according to the corresponding evaluation criteria (heavy pollution, light pollution, good, excellent).
 
-#### ◦Implement weather data caching to reduce API calls
+#### ▪Implement weather data caching to reduce API calls
   - Add caching function to the software, reduce the number of API calls and shorten the response time
 
-#### ◦Add weather alerts
+#### ▪Add weather alerts
   - Different alert levels (prompt, concern, warning, emergency) are divided according to the impact of the weather, and different types of notifications are sent to customers according to the alert level.
 
 #### ◦Added automatic detection of user location
   - If the user turns on "Location information access permission", the system will automatically obtain the current location and return detailed weather information at the user's coordinates.
 
-#### ◦Support more language localization
+#### ▪Support more language localization
   - To adapt to users in different countries and regions, we will continue to update the software language system to support multiple languages.
 
-#### ◦Develop mobile app version
+#### ▪Develop mobile app version
   - The current software can realize web page query. In order to optimize the experience and take care of the majority of mobile users, we will try to develop a mobile application version to facilitate users.
 
 
