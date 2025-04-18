@@ -70,8 +70,37 @@
    - The operational support system is equally critical. We have established a multi-layered monitoring framework that comprehensively tracks system performance, from front-end performance metrics to back-end API health checks. The deployment process employs a blue-green strategy with rapid rollback capabilities. A real-time log analysis platform tracks anomalies, working in tandem with automated test suites to maintain system failure rates at minimal levels. Through these technical safeguards, we can deliver highly available weather information services to users while laying a solid foundation for future feature iterations.
 
 ## Team members and contributions
+ ◦LI MANXIN
+▪ Project Manager + Software Designer
+▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time.
+▪ portion:
+   -Complete some source codes
+   -Design the main structure of the web page
+   -Improve the readme file
 
+ ◦SHEN YAOYI
+▪ Project Manager + Software Designer and Maintainer:
+▪ In addition to project management and design responsibilities, also responsible for the long-term maintenance of the system, bug fixing, and functional updates to ensure the stable operation of the system.
+▪ portion:
+   - Complete the remaining source code
+   - Improve the functions of the web page
+   - Maintenance work after the completion of the web page
 
+ ◦ZHANG YUCHEN
+▪ Project Manager + Software Designer and Tester
+▪ Combining project management, design and testing responsibilities, responsible for formulating test plans, executing test cases and verifying whether system functions meet requirements.
+▪ portion:
+   - Improve the source code
+   - Formulate a test plan
+   - Test web page
+
+  ◦ZHANG YUERAN
+▪ Project Manager + Software Tester and Analyst
+▪ Focused on project management, system testing and data analysis, responsible for collecting user feedback, analyzing system performance and proposing improvement suggestions.
+▪ portion:
+   - Further test the web page functions
+   - Analyze web pages
+   -vComplete the readme file
 
 ## Project Schedule
 | Phase                        | Time      | Deliverables                     |
