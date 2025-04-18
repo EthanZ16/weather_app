@@ -20,11 +20,11 @@
    - Students and office workers who check the weather in the morning to decide what to wear.
 
 ## Development Process
-### ◦ Requirement Engineering:
+#### ◦ Requirement Engineering:
    - Before initiating this project, we conducted market research to analyze user needs for weather applications. Our findings revealed that daily commuters primarily require real-time weather updates and short-term forecasts, while outdoor sports enthusiasts and weather hobbyists need professional meteorological data such as wind speed, air pressure, and visibility. Travelers, on the other hand, often need to compare weather conditions across multiple cities and access long-term weather trend data for trip planning. Additionally, through continuous feature updates and enhancements, we can attract a broader range of user demographics.
    - The weather application we are developing integrates multiple practical features. Core must-have functionalities include: city search, real-time weather display (basic information such as temperature, humidity, visibility, and weather icons), and 24-hour forecasts. Key features consist of 5-day weather forecasts, weather sharing, weather comments, weather favorites, solar term displays, and other engaging weather-related information. Extended functionalities cover an interactive map (clicking on coordinates to view local weather, global storm tracks, and rainfall heatmaps). Future updates may introduce more comprehensive interactive weather maps, global storm tracking, rainfall heatmaps, and health impact alerts related to weather conditions.
    - From a technical requirements perspective, our primary focus areas include: API selection, multi-client adaptation solutions, and data update frequency strategies as critical technical considerations.
-### ◦ Software Design and Implementation
+#### ◦ Software Design and Implementation
 #### ▪ Define the context and modes of use of the system
    *Context*
     - The weather query website is a web-based application that mainly provides users with real-time weather information, weather forecasts, and meteorological data visualization. The system obtains weather data by calling the OpenWeatherMap API and displays it to users on the front end. Users can access the website through a browser and enter a city name or automatically detect a location to query the weather.
@@ -46,7 +46,7 @@
 *Service objects*
 - weatherService, specialWeatherService, etc., responsible for communicating with external APIs and processing data.
 
-####  ▪Develop Design Models
+####  ▪ Develop Design Models
    *Data model*
    - defines how to store and organize weather data (temperature, humidity, wind speed, etc.)
    *View model*
@@ -56,22 +56,22 @@
    *Responsive model*
    - ensures that the web page displays well on different devices
 
-####  ▪Object Interfaces
+####  ▪ Object Interfaces
    - WeatherData interface：Provides access methods for weather data, including getting the current temperature (returning a numerical value in degrees Celsius), wind speed level (such as the string "breeze"), and multi-day forecast data (returning an array of date, maximum/minimum temperature).
    - CitySearch interface：Handles the city search function, including two methods: ‘search’ (asynchronously initiates API requests and returns weather data) and ‘validateInput’(validates whether the city name entered by the user is legal).
    - ThemeManager interface：Manages theme switching functions, supports switching day/night mode (toggleTheme) and getting the current theme name (getCurrentTheme)
 
-#### ▪Implementation
+#### ▪ Implementation
    - This project is developed using a modern front-end technology stack, leveraging React 18 and Vite for efficient compilation and modular CSS management. In a Node.js development environment, it interacts with the OpenWeatherMap API via Axios to fetch real-time weather data. The system automatically processes core data logic, including temperature unit conversion (Kelvin to Celsius), wind speed classification, and multi-day forecast integration (calculating daily average, maximum, and minimum temperatures).
    -The application interface consists of three key interactive components: an intelligent search bar with input validation, a comprehensive weather display card (integrating current conditions, 24-hour line charts, and multi-day forecasts), and a dynamic theme-switching style manager. During development, Git is used for version control following a main/dev branch strategy, while package.json centrally manages project dependencies.
 
-#### ▪Evaluation and Maintenance
+#### ▪ Evaluation and Maintenance
    - In the software development lifecycle, continuous system evolution and maintenance are crucial for ensuring long-term product competitiveness. For weather applications, feature enhancement and improvement are particularly important, requiring us to establish a systematic requirements management mechanism. We will comprehensively collect user experience data through multi-dimensional feedback channels, including in-app rating systems, social media monitoring, and user interviews. This raw data will be analyzed by our professional product team and combined with technical feasibility assessments to form a clear iteration roadmap.
    - For the core functionalities most valued by users, we have developed a phased optimization plan. In the short term, the focus will be on improving forecast accuracy by implementing cross-validation mechanisms with additional data sources to reduce error rates. Mid-term goals include expanding weather alert capabilities by developing a real-time severe weather notification system based on location services. Long-term planning will center on personalized services, leveraging machine learning algorithms to analyze user behavior and provide customized weather recommendations. All improvements will follow A/B testing procedures to ensure the stability and user acceptance of new features upon release.
    - The operational support system is equally critical. We have established a multi-layered monitoring framework that comprehensively tracks system performance, from front-end performance metrics to back-end API health checks. The deployment process employs a blue-green strategy with rapid rollback capabilities. A real-time log analysis platform tracks anomalies, working in tandem with automated test suites to maintain system failure rates at minimal levels. Through these technical safeguards, we can deliver highly available weather information services to users while laying a solid foundation for future feature iterations.
 
 ## Team members and contributions
- ◦LI MANXIN<br>
+ ◦ LI MANXIN<br>
 ▪ Project Manager + Software Designer<br>
 ▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time<br>
 ▪ portion:
@@ -79,7 +79,7 @@
    - Design the main structure of the web page
    - Improve the readme file
 
- ◦SHEN YAOYI<br>
+ ◦ SHEN YAOYI<br>
 ▪ Project Manager + Software Designer and Maintainer:<br>
 ▪ In addition to project management and design responsibilities, also responsible for the long-term maintenance of the system, bug fixing, and functional updates to ensure the stable operation of the system.<br>
 ▪ portion:
@@ -87,7 +87,7 @@
    - Improve the functions of the web page
    - Maintenance work after the completion of the web page
 
- ◦ZHANG YUCHEN<br>
+ ◦ ZHANG YUCHEN<br>
 ▪ Project Manager + Software Designer and Tester<br>
 ▪ Combining project management, design and testing responsibilities, responsible for formulating test plans, executing test cases and verifying whether system functions meet requirements.<br>
 ▪ portion:
@@ -95,7 +95,7 @@
    - Formulate a test plan
    - Test web page
 
-  ◦ZHANG YUERAN<br>
+  ◦ ZHANG YUERAN<br>
 ▪ Project Manager + Software Tester and Analyst<br>
 ▪ Focused on project management, system testing and data analysis, responsible for collecting user feedback, analyzing system performance and proposing improvement suggestions.<br>
 ▪ portion:
@@ -122,7 +122,7 @@
  - Data interpolation algorithm: Convert 3-hour interval weather data into hourly data for 24-hour weather forecast display.
 
 ## Current Status
-#### ▪Completed Features
+#### ▪ Completed Features
   - City weather search function: supports multiple query methods
   - Current weather display: including temperature, humidity, wind speed, air pressure, wind speed and other basic information.
   - Interactive communication: Share, save, and comment on the current city's weather.
@@ -131,28 +131,28 @@
   - Fun Weather Forecast: The solar term of the current date, the highest and lowest temperatures of the current week, the weather on this day in history, and the predicted time of the next meteor shower.
   - Theme switching: Free switching between two themes is realized, optimizing the visual experience.
 
-#### ▪Functions that are constantly being improved
+#### ▪ Functions that are constantly being improved
   - Interactive map optimization: The basic map display and clickable city coordinates have been completed, and optimization will continue. For example, regional weather overview, mobile gesture support optimization, etc.
 
-#### ▪Currently, the test coverage of various functions has reached 75%.
+#### ▪ Currently, the test coverage of various functions has reached 75%.
 
 ## Future Plans
-#### ▪Added Air Quality Index (AQI) display
+#### ▪ Added Air Quality Index (AQI) display
   - For example, the system obtains the index of relevant air pollutants and rates the air quality according to the corresponding evaluation criteria (heavy pollution, light pollution, good, excellent).
 
-#### ▪Implement weather data caching to reduce API calls
+#### ▪ Implement weather data caching to reduce API calls
   - Add caching function to the software, reduce the number of API calls and shorten the response time
 
-#### ▪Add weather alerts
+#### ▪ Add weather alerts
   - Different alert levels (prompt, concern, warning, emergency) are divided according to the impact of the weather, and different types of notifications are sent to customers according to the alert level.
 
-#### ◦Added automatic detection of user location
+#### ▪ Added automatic detection of user location
   - If the user turns on "Location information access permission", the system will automatically obtain the current location and return detailed weather information at the user's coordinates.
 
-#### ▪Support more language localization
+#### ▪ Support more language localization
   - To adapt to users in different countries and regions, we will continue to update the software language system to support multiple languages.
 
-#### ▪Develop mobile app version
+#### ▪ Develop mobile app version
   - The current software can realize web page query. In order to optimize the experience and take care of the majority of mobile users, we will try to develop a mobile application version to facilitate users.
 
 
