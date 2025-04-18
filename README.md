@@ -2,14 +2,14 @@
 
 ## Graphical Abstract
 ## Purpose of the software
-### ○Software development process:Agile
-### ○Reasons
+### ○ Software development process:Agile
+### ○ Reasons
    - Weather query system is a widely used software. Its competitors are not only other weather software, but also the weather query system that comes with the mobile phone. If we want to seize the first opportunity in the market, we need to achieve Time to Market.
    - Requirements change with user feedback: Initially we only considered basic data, but as development progresses, users may also have strong demands for other indices such as customs and air pressure.
    - Allows for phased delivery of core functionality: We can first complete the most basic "city search + weather display" function, and then gradually complete the implementation of functions such as 24-hour weather forecast, five-day weather forecast, historical weather, etc.
    - Facilitates rapid iteration and adjustment of feature priorities: The agile development process allows us to adjust the order of feature development according to the urgency of customer needs and better respond to market demands.
    - Suitable for small development team collaboration: Small teams are more flexible and creative, and members can communicate with each other in a timely manner, all of which are more in line with the characteristics of agile development processes.
-### ○Software Type and Target Market
+### ○ Software Type and Target Market
    **Software Type:**
    - The software we developed is a comprehensive weather query web application, mainly for users who need to check the weather in real time.
 
@@ -20,11 +20,11 @@
    - Students and office workers who check the weather in the morning to decide what to wear.
 
 ## Development Process
-### ○Requirement Engineering:
+### Requirement Engineering:
    - Before initiating this project, we conducted market research to analyze user needs for weather applications. Our findings revealed that daily commuters primarily require real-time weather updates and short-term forecasts, while outdoor sports enthusiasts and weather hobbyists need professional meteorological data such as wind speed, air pressure, and visibility. Travelers, on the other hand, often need to compare weather conditions across multiple cities and access long-term weather trend data for trip planning. Additionally, through continuous feature updates and enhancements, we can attract a broader range of user demographics.
    - The weather application we are developing integrates multiple practical features. Core must-have functionalities include: city search, real-time weather display (basic information such as temperature, humidity, visibility, and weather icons), and 24-hour forecasts. Key features consist of 5-day weather forecasts, weather sharing, weather comments, weather favorites, solar term displays, and other engaging weather-related information. Extended functionalities cover an interactive map (clicking on coordinates to view local weather, global storm tracks, and rainfall heatmaps). Future updates may introduce more comprehensive interactive weather maps, global storm tracking, rainfall heatmaps, and health impact alerts related to weather conditions.
    - From a technical requirements perspective, our primary focus areas include: API selection, multi-client adaptation solutions, and data update frequency strategies as critical technical considerations.
-### ○Software Design and Implementation
+### ○ Software Design and Implementation
 #### ▪ Define the context and modes of use of the system
    *Context*
     - The weather query website is a web-based application that mainly provides users with real-time weather information, weather forecasts, and meteorological data visualization. The system obtains weather data by calling the OpenWeatherMap API and displays it to users on the front end. Users can access the website through a browser and enter a city name or automatically detect a location to query the weather.
