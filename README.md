@@ -72,23 +72,31 @@
 
 ## Team members and contributions
  ◦LI MANXIN
+ 
 ▪ Project Manager + Software Designer
+
 ▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time.
+
 ▪ portion:
    -Complete some source codes
    -Design the main structure of the web page
    -Improve the readme file
 
  ◦SHEN YAOYI
+ 
 ▪ Project Manager + Software Designer and Maintainer:
+
 ▪ In addition to project management and design responsibilities, also responsible for the long-term maintenance of the system, bug fixing, and functional updates to ensure the stable operation of the system.
+
 ▪ portion:
    - Complete the remaining source code
    - Improve the functions of the web page
    - Maintenance work after the completion of the web page
 
  ◦ZHANG YUCHEN
+ 
 ▪ Project Manager + Software Designer and Tester
+
 ▪ Combining project management, design and testing responsibilities, responsible for formulating test plans, executing test cases and verifying whether system functions meet requirements.
 ▪ portion:
    - Improve the source code
@@ -96,8 +104,11 @@
    - Test web page
 
   ◦ZHANG YUERAN
+  
 ▪ Project Manager + Software Tester and Analyst
+
 ▪ Focused on project management, system testing and data analysis, responsible for collecting user feedback, analyzing system performance and proposing improvement suggestions.
+
 ▪ portion:
    - Further test the web page functions
    - Analyze web pages
