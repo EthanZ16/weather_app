@@ -1,6 +1,7 @@
 # Weather Query Website
 
 ## Graphical Abstract
+
 ## Purpose of the software
 ### 1.Software development process:Agile
 ### 2.Reasons
@@ -19,16 +20,15 @@
    - Weather enthusiasts interested in weather data.
    - Students and office workers who check the weather in the morning to decide what to wear.
 
-## Software development and design
-### （1）Development Process
-#### Requirement engineering:
+## Development Process
+### Requirement Engineering:
    - Before initiating this project, we conducted market research to analyze user needs for weather applications. Our findings revealed that daily commuters primarily require real-time weather updates and short-term forecasts, while outdoor sports enthusiasts and weather hobbyists need professional meteorological data such as wind speed, air pressure, and visibility. Travelers, on the other hand, often need to compare weather conditions across multiple cities and access long-term weather trend data for trip planning. Additionally, through continuous feature updates and enhancements, we can attract a broader range of user demographics.
 
    - The weather application we are developing integrates multiple practical features. Core must-have functionalities include: city search, real-time weather display (basic information such as temperature, humidity, visibility, and weather icons), and 24-hour forecasts. Key features consist of 5-day weather forecasts, weather sharing, weather comments, weather favorites, solar term displays, and other engaging weather-related information. Extended functionalities cover an interactive map (clicking on coordinates to view local weather, global storm tracks, and rainfall heatmaps). Future updates may introduce more comprehensive interactive weather maps, global storm tracking, rainfall heatmaps, and health impact alerts related to weather conditions.
 
    - From a technical requirements perspective, our primary focus areas include: API selection, multi-client adaptation solutions, and data update frequency strategies as critical technical considerations.
-### (2) System Design
-#### Define the context and modes of use of the system
+### Software Design and Implementation
+#### ▪ Define the context and modes of use of the system
    *Context*
     - The weather query website is a web-based application that mainly provides users with real-time weather information, weather forecasts, and meteorological data visualization. The system obtains weather data by calling the OpenWeatherMap API and displays it to users on the front end. Users can access the website through a browser and enter a city name or automatically detect a location to query the weather.
 
@@ -36,50 +36,32 @@
     - Normal user mode: Users enter the city name in the search box to query the current weather, 24-hour forecast, and multi-day forecast. The system supports theme switching (such as day/night mode) and basic interaction (click the show chart label to interact with the weather forecast for the next 24 hours).
     - Weather Enthusiast Mode: Users are interested in detailed weather data (such as wind speed, humidity, air pressure, etc.), and the system provides more comprehensive data display and chart analysis functions.
     
-####  Design the system architecture
-   The system adopts the "front-end and back-end separation" architecture, built on the React framework, and is specifically divided into the following levels:
-   *Front-end layer*
-   - User interface (UI): implemented using React components, including search bar, weather card, charts, etc.
-   - State management: manage global state (such as user-selected city, theme preference) through React Context or Redux.
-   - API call: use Axios to get data from OpenWeatherMap API, and convert and cache the data.
+####  ▪ Design the system architecture
+   - The weather forecast system adopts a layered architecture design. Its presentation layer (user interface) is responsible for all user interaction functions, including a responsive web-designed graphical user interface. The main components consist of: a city search bar, current weather display cards, temperature/apparent temperature trend charts, weather sharing and commenting features, an interactive weather map (supporting city weather viewing/storm paths/rainfall heat maps), a theme-switching settings panel, and entertaining weather information displays (solar terms/extreme temperatures/historical weather/meteor shower predictions), etc.
 
-   *Backend layer (optional)*
-   - If users need to log in or save preferences in the future, you can introduce a Node.js backend service to process user data and cache weather information.
+   - The business logic layer contains core application functional modules: the weather data processing module handles API response standardization, temperature unit conversion, and weather index calculations; the current location city display settings. All modules work in coordination to ensure accurate weather data processing and personalized services.
 
-   *Data layer*
-   - Rely on a third-party API (OpenWeatherMap) to provide raw weather data.
+   - The data access layer focuses on data storage and retrieval, with core components including: a third-party API interface connected to OpenWeatherMap, a browser localStorage-based local storage system, an intelligent caching mechanism with TTL management, and a data encryption module that ensures security. This layer provides stable and reliable data support for the upper business logic while ensuring the security of users' sensitive information.
 
-####  Principal System Objects
-   *WeatherData*
-   - Encapsulates the raw weather data obtained from the API and provides access methods for attributes such as temperature, humidity, and wind speed.
-     
-   *CitySearch*
-   - Processes the city name entered by the user, validates the input and triggers the API query.
+####  ▪ Define the Principal System Objects
+*Weather data objects*
+- CurrentWeather (current weather), Forecast (weather forecast), WeatherAlert (weather alert), etc. These objects store and process weather information obtained from APIs.
+*User interface components*
+- SearchBar (search bar), map components (LeafletMap, InteractiveMap, UnifiedMap), etc., responsible for user interaction and data visualization.
+*Service objects*
+- weatherService, specialWeatherService, etc., responsible for communicating with external APIs and processing data.
 
-   *ForecastDisplay*
-   - Responsible for grouping weather data by hour or day, generating the display logic for 24-hour forecasts and multi-day forecasts.
+####  ▪Develop Design Models
+   *Data model*
+   - defines how to store and organize weather data (temperature, humidity, wind speed, etc.)
+   *View model*
+   - determines how to display weather information on the interface (current weather, forecast, map components, etc.)
+   *Interaction model*
+   - plans how users interact with the weather application (searching for cities, switching views, etc.)
+   *Responsive model*
+   - ensures that the web page displays well on different devices
 
-   *ThemeManager*
-   - Manages theme switching and saves user preferences (such as day/night mode).
-
-   *UserLocation*
-   - Implements automatic user location detection (via the browser Geolocation API).
-
-####  Design Models
-   *User interface mockup*
-   - The search bar is at the top of the page, with the current weather, 24-hour forecast (horizontal scroll bar), multi-day forecast (card list) and some interesting facts about the weather displayed below. At the same time, users can also choose to use the interactive map to more quickly query weather information in other cities.
-   - Theme switch button is fixed in the upper right corner.
-
-   *Data flow model*
-   - User enters city name → CitySearch triggers API request → Returned data is processed by WeatherData → ForecastDisplay updates UI.
-   - User switches themes → ThemeManager updates CSS variables → Global UI re-renders.
-
-   *State machine model*
-   - Loading state: Display loading animation.
-   - Success state: Display weather data.
-   - Error state: Display error message (such as "City not found").
-     
-####  Object Interfaces
+####  ▪Object Interfaces
    *WeatherData interface*
    - Provides access methods for weather data, including getting the current temperature (returning a numerical value in degrees Celsius), wind speed level (such as the string "breeze"), and multi-day forecast data (returning an array of date, maximum/minimum temperature).
    *CitySearch interface*
@@ -87,105 +69,32 @@
    *ThemeManager interface*
    - Manages theme switching functions, supports switching day/night mode (toggleTheme) and getting the current theme name (getCurrentTheme)
 
-### (3) Implementation
-#### Technology stack and development environment
-   - Front-end: React 18 + Vite (fast build), CSS modularization.
-   - API integration: Axios calls OpenWeatherMap API to get weather data.
-   - Development platform: Node.js environment, debug with modern browsers (Chrome/Firefox).
-   - Production environment: Deploy to a server that supports JavaScript (such as Netlify/Vercel).
+#### ▪Implementation
+   - This project is developed using a modern front-end technology stack, leveraging React 18 and Vite for efficient compilation and modular CSS management. In a Node.js development environment, it interacts with the OpenWeatherMap API via Axios to fetch real-time weather data. The system automatically processes core data logic, including temperature unit conversion (Kelvin to Celsius), wind speed classification, and multi-day forecast integration (calculating daily average, maximum, and minimum temperatures).
 
-#### Core Function Implementation
-   *Data Acquisition*
-   - Asynchronously request weather data through the OpenWeatherMap API and use Axios to handle HTTP requests.
+   -The application interface consists of three key interactive components: an intelligent search bar with input validation, a comprehensive weather display card (integrating current conditions, 24-hour line charts, and multi-day forecasts), and a dynamic theme-switching style manager. During development, Git is used for version control following a main/dev branch strategy, while package.json centrally manages project dependencies.
 
-   *Data Processing*
-   - Temperature conversion (Kelvin → Celsius).
-   - Wind speed level classification (no wind/light breeze/strong wind).
-   - Forecast data grouped by day (calculate daily average temperature, maximum/minimum temperature).
+#### ▪Evaluation and Maintenance
+   - In the software development lifecycle, continuous system evolution and maintenance are crucial for ensuring long-term product competitiveness. For weather applications, feature enhancement and improvement are particularly important, requiring us to establish a systematic requirements management mechanism. We will comprehensively collect user experience data through multi-dimensional feedback channels, including in-app rating systems, social media monitoring, and user interviews. This raw data will be analyzed by our professional product team and combined with technical feasibility assessments to form a clear iteration roadmap.
 
-   *UI Components*
-   - Search bar (CitySearch component): input validation and API triggering.
-   - Weather card (WeatherData component): display current weather, 24-hour chart (line chart), multi-day forecast.
-   - Theme switching (ThemeManager  component): dynamic update of CSS variables.
+   - For the core functionalities most valued by users, we have developed a phased optimization plan. In the short term, the focus will be on improving forecast accuracy by implementing cross-validation mechanisms with additional data sources to reduce error rates. Mid-term goals include expanding weather alert capabilities by developing a real-time severe weather notification system based on location services. Long-term planning will center on personalized services, leveraging machine learning algorithms to analyze user behavior and provide customized weather recommendations. All improvements will follow A/B testing procedures to ensure the stability and user acceptance of new features upon release.
 
-#### Configuration management and deployment
-   *Version control*
-   - Git manages code, branch strategy (such as `main`/`dev`).
-     
-   *Dependency management*
-   - Use `package.json` to specify third-party libraries (such as React Icons, Axios).
-
-   *Build and deployment*
-   - Vite packaging optimization, static files deployed to CDN.
-
-#### Optimization and expansion
-   *Cache*
-   - Local Storage reduces API calls.
-
-   *Error handling*
-   - User-friendly prompts (such as "City not found").
-
-   *Future plans*
-   - Air quality (AQI) display, multi-language support.
-
-### (4) Testing
-#### Functional Testing
-   *City Search*
-   - Enter a valid city: The result is accurate and the relevant data is displayed complete.
-   - Enter an ambiguous city name: Directly try to find the most relevant match.
-
-   *Weather display*
-   - Real-time data refresh: It has an automatic update mechanism and the relevant settings are correct.
-   - Unit switching: All data are converted synchronously, including time, temperature units, etc.
-
-   *Forecast function*
-   - 24-hour forecast: ensure the consistency of the timeline and the accuracy of the forecast data.
-   - 5-day forecast: Ensure that the date calculation is accurate and the forecast data is relatively accurate and reasonable.
-
-   *System*
-   - Theme switching: There will be no screen flickering or incomplete switching errors when switching back and forth between two themes.
-
-#### Release Testing
-   *Pre-release check content*
-   - availability of core functions, API response time, browser compatibility (the website can be opened normally on multiple different browsers), and multiple client adaptation (for example, PC and mobile, Apple system and Android system).
-
-   *Key performance indicators in performance testing*
-   - throughput (large), error rate (extremely small), memory usage (small), CPU load (small).
-
-   *Security testing*
-   - Checking sensitive data (ensuring API keys are not exposed)
-
-#### Acceptance Testing
-   *User acceptance test scenarios*
-   - Ensure that functions such as the complete weather query process and theme switching process are accurate.
-   *Indicators required for acceptance*
-   - Short first screen loading time, strong usability (uptime), and low vulnerability level (no high-risk vulnerabilities).
-
-### (5) Deployment
-#### Pre-deployment preparation
-   - Deploy the corresponding resources to one of the three platforms: Vercel, Netlify, or GitHub Pages.Finally we chose the platform: Vercel
-
-#### Maintenance Program
-   *Monitoring*
-   - Front-end monitoring
-   - Performance monitoring
-   - API health check
-
-   *Update strategy*
-   - Update at regular intervals
-   - Version rollback mechanism (can roll back within a certain period of time to avoid code errors leading to wrong version releases)
+   - The operational support system is equally critical. We have established a multi-layered monitoring framework that comprehensively tracks system performance, from front-end performance metrics to back-end API health checks. The deployment process employs a blue-green strategy with rapid rollback capabilities. A real-time log analysis platform tracks anomalies, working in tandem with automated test suites to maintain system failure rates at minimal levels. Through these technical safeguards, we can deliver highly available weather information services to users while laying a solid foundation for future feature iterations.
 
 ## Team members and contributions
-## Project Timeline
+
+
+
+## Project Schedule
 | Phase                        | Time      | Deliverables                     |
 |------------------------------|-----------|-----------------------------------|
 | Requirements Analysis         | Week 1    | Requirements Document             |
 | UI Design                     | Week 2    | Design Draft                      |
-| Core Function Development     | Week 3-4  | Basic Weather Query Function      |
-| Enhancement Development       | Week 5    | Forecasts, Maps, and More         |
-| UI/UX Improvement             | Week 6    | Theme System, Responsive Design   |
-| Testing and Optimization      | Week 7    | Stable Version                    |
-| Deployment and Launch         | Week 8    | Production Environment            |
+| Core Function Development     | Week 2-3  | Basic Weather Query Function      |
+| Enhancement Development       | Week 4    | Forecasts, Maps, and More         |
+| UI/UX Improvement             | Week 4    | Theme System, Responsive Design   |
+| Testing and Optimization      | Week 5    | Stable Version                    |
+| Deployment and Launch         | Week 6    | Production Environment            |
 
 ## Algorithm
  - Temperature Conversion Algorithm: Convert Kelvin temperature to Celsius by subtracting 273.15 and rounding to an integer result.
@@ -195,65 +104,53 @@
  - Data interpolation algorithm: Convert 3-hour interval weather data into hourly data for 24-hour weather forecast display.
 
 ## Current Status
-### (1) Completed Features
+### ▪Completed Features
   - City weather search function: supports multiple query methods
   - Current weather display: including temperature, humidity, wind speed, air pressure, wind speed and other basic information.
+  - Interactive communication: Share, save, and comment on the current city's weather.
   - 24-hour forecast: Grouped by hour and displays simple information such as time and temperature.
   - Multi-day forecast: correctly display the date, day of the week, maximum temperature, minimum temperature and other valid information.
+  - Fun Weather Forecast: The solar term of the current date, the highest and lowest temperatures of the current week, the weather on this day in history, and the predicted time of the next meteor shower.
   - Theme switching: Free switching between two themes is realized, optimizing the visual experience.
 
-### (2) Functions that are constantly being improved
+### ▪Functions that are constantly being improved
   - Interactive map optimization: The basic map display and clickable city coordinates have been completed, and optimization will continue. For example, regional weather overview, mobile gesture support optimization, etc.
 
-### (3) Currently, the test coverage of various functions has reached 75%.
+### ▪Currently, the test coverage of various functions has reached 75%.
 
 ## Future Plans
-### (1) Added Air Quality Index (AQI) display
+### ▪Added Air Quality Index (AQI) display
   - For example, the system obtains the index of relevant air pollutants and rates the air quality according to the corresponding evaluation criteria (heavy pollution, light pollution, good, excellent).
 
-### (2) Implement weather data caching to reduce API calls
+### ▪Implement weather data caching to reduce API calls
   - Add caching function to the software, reduce the number of API calls and shorten the response time
 
-### (3) Add weather alerts
+### ▪Add weather alerts
   - Different alert levels (prompt, concern, warning, emergency) are divided according to the impact of the weather, and different types of notifications are sent to customers according to the alert level.
 
-### (4) Added automatic detection of user location
+### ▪Added automatic detection of user location
   - If the user turns on "Location information access permission", the system will automatically obtain the current location and return detailed weather information at the user's coordinates.
 
-### (5) Support more language localization
+### ▪Support more language localization
   - To adapt to users in different countries and regions, we will continue to update the software language system to support multiple languages.
 
-### (6) Develop mobile app version
+### ▪Develop mobile app version
   - The current software can realize web page query. In order to optimize the experience and take care of the majority of mobile users, we will try to develop a mobile application version to facilitate users.
 
-## Development Environment
-### 1.Programming languages ​​and technology stack
-  - Main language: JavaScript (ES6+)
-  - Framework: React 18
-  - Build tool: Vite
-  - CSS processing: Native CSS + CSS modules
 
-### 2.Hardware/Software Requirements
-  *Development Environment*
-  - Node.js v16+
-  - npm 8+
-  - modern browsers (Chrome/Firefox/Edge)
+# Additional components
+## Domo
 
-  *Production environment*
-  - Any browser that supports modern JavaScript
-  - A server with at least 1GB of RAM
+## Environments of the software development and running
+   - Language: JavaScript (ES6+)
+   - Framework: React 18
+   - Build: Vite
+   - Styling: CSS Modules
+   - Dev Requirements: Node.js 16+ / npm 8+ / Modern browsers
+   - Production: JS-enabled browsers / 1GB RAM server
 
-## Third-party dependencies
-   - react (^18.2.0) : A JavaScript library for building user interfaces, which is the core framework of the application.
-   - react-dom (^18.2.0) : React's DOM rendering package, responsible for rendering React components into the browser DOM.
-   - axios (^1.3.4) : A library for sending HTTP requests, which is used in the application to obtain weather data from the OpenWeatherMap API.
-   - react-icons (^4.8.0) : A React component library that provides various icons, which is used for various icon displays in the application.
-
-## Statement
-### This project uses the following open source resources:
-  - Weather data: provided by OpenWeatherMap API (subject to its terms of use).
-  - Icons: from React Icons library (MIT license).
-  - UI components: based in part on best practices from the open source community.
-
-
-### This project follows the MIT open source license. All third-party libraries are used under their respective licenses.
+## Declarations
+   - Weather data: OpenWeatherMap API
+   - Icons: React Icons (MIT)
+   - License: MIT Open Source
+   - All third-party libraries comply with their respective licenses
