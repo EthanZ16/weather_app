@@ -72,11 +72,8 @@
 
 ## Team members and contributions
  ◦LI MANXIN
- 
 ▪ Project Manager + Software Designer
-
-▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time.
-
+▪ Responsible for overall project planning, requirement analysis, architecture design and team coordination. Formulate the development plan, allocate tasks and ensure that the project is completed on time
 ▪ portion:
    -Complete some source codes
    -Design the main structure of the web page
