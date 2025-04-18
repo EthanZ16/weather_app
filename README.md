@@ -2,7 +2,7 @@
 
 ## Graphical Abstract
 ## Purpose of the software
-### ○ Software development process:Agile
+### &cir; Software development process:Agile
 ### ○ Reasons
    - Weather query system is a widely used software. Its competitors are not only other weather software, but also the weather query system that comes with the mobile phone. If we want to seize the first opportunity in the market, we need to achieve Time to Market.
    - Requirements change with user feedback: Initially we only considered basic data, but as development progresses, users may also have strong demands for other indices such as customs and air pressure.
