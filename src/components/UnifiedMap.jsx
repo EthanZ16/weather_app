@@ -472,7 +472,7 @@ function UnifiedMap({ onSelectLocation }) {
         setError('No precipitation data available');
       }
     } catch (err) {
-      setError('Failed to load precipitation data. Please try again later.');
+      // 删除错误信息显示，只在控制台记录错误
       console.error('Error fetching rainfall data:', err);
     } finally {
       setLoading(false);
@@ -537,25 +537,8 @@ function UnifiedMap({ onSelectLocation }) {
     // Current hour index being displayed
     let currentHourIndex = 0;
     
-    // Create time control with English text
-    const timeControl = window.L.control({position: 'bottomleft'});
-    timeControl.onAdd = function() {
-      const div = window.L.DomUtil.create('div', 'rainfall-time-control');
-      div.innerHTML = `
-        <div class="time-slider-container">
-          <button id="play-button">▶</button>
-          <input type="range" id="time-slider" min="0" max="${forecastHours}" value="0" step="1">
-          <span id="time-display">Current (0h)</span>
-        </div>
-        <div style="font-size: 11px; margin-top: 5px;">Slide to view forecast</div>
-      `;
-      div.style.backgroundColor = 'white';
-      div.style.padding = '10px';
-      div.style.borderRadius = '5px';
-      div.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
-      return div;
-    };
-    timeControl.addTo(leafletMapRef.current);
+    // 时间控制器已被移除，直接显示当前降雨数据
+    // 不再显示时间滑块和播放按钮
     
     // Create and display initial heatmap
     const updateHeatmap = (hourIndex) => {
@@ -615,53 +598,11 @@ function UnifiedMap({ onSelectLocation }) {
       }
     };
     
-    // Initialize heatmap
-    updateHeatmap(currentHourIndex);
+    // Initialize heatmap with current data only (no time controls)
+    updateHeatmap(0);
     
     // Legend is now added immediately when rainfall mode is activated via addRainfallLegend()
-    
-    // Set up time slider event listeners
-    setTimeout(() => {
-      const slider = document.getElementById('time-slider');
-      const playButton = document.getElementById('play-button');
-      
-      if (slider) {
-        slider.addEventListener('input', function() {
-          currentHourIndex = parseInt(this.value);
-          updateHeatmap(currentHourIndex);
-        });
-      }
-      
-      // Animation playback functionality
-      let isPlaying = false;
-      let animationInterval;
-      
-      if (playButton) {
-        playButton.addEventListener('click', function() {
-          if (isPlaying) {
-            // Stop animation
-            clearInterval(animationInterval);
-            this.textContent = '▶';
-            isPlaying = false;
-          } else {
-            // Start animation
-            this.textContent = '⏸';
-            isPlaying = true;
-            
-            animationInterval = setInterval(() => {
-              if (currentHourIndex < forecastHours) {
-                currentHourIndex++;
-              } else {
-                currentHourIndex = 0;
-              }
-              
-              if (slider) slider.value = currentHourIndex;
-              updateHeatmap(currentHourIndex);
-            }, 1000); // Update once per second
-          }
-        });
-      }
-    }, 500);
+    // 时间控制器和相关事件监听已被移除
   };
   
   return (
