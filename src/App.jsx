@@ -6,8 +6,7 @@ import Forecast from './components/Forecast'
 import HourlyForecast from './components/HourlyForecast'
 import WeatherAlert from './components/WeatherAlert'
 import SeasonalInfo from './components/SeasonalInfo'
-import WeatherMap from './components/WeatherMap'
-import InteractiveMap from './components/InteractiveMap'
+import UnifiedMap from './components/UnifiedMap'
 import DailyFunFacts from './components/DailyFunFacts'
 import WeatherSocial from './components/WeatherSocial'
 import { 
@@ -251,7 +250,7 @@ function App() {
             
             <SeasonalInfo />
             
-            <InteractiveMap onSelectLocation={handleMapLocationSelect} />
+            <UnifiedMap onSelectLocation={handleMapLocationSelect} />
             
             {hourlyForecast && (
               <div className="hourly-forecast-section">
@@ -277,8 +276,6 @@ function App() {
                 <p>No weather alerts</p>
               </div>
             )}
-            
-            <WeatherMap />
             <DailyFunFacts />
           </div>
         )}
