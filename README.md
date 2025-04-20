@@ -53,10 +53,25 @@
    - This project is developed using a modern front-end technology stack, leveraging React 18 and Vite for efficient compilation and modular CSS management. In a Node.js development environment, it interacts with the OpenWeatherMap API via Axios to fetch real-time weather data. The system automatically processes core data logic, including temperature unit conversion (Kelvin to Celsius), wind speed classification, and multi-day forecast integration (calculating daily average, maximum, and minimum temperatures).
    -The application interface consists of three key interactive components: an intelligent search bar with input validation, a comprehensive weather display card (integrating current conditions, 24-hour line charts, and multi-day forecasts), and a dynamic theme-switching style manager. During development, Git is used for version control following a main/dev branch strategy, while package.json centrally manages project dependencies.
 
-#### ▪ Evaluation and Maintenance
-   - In the software development lifecycle, continuous system evolution and maintenance are crucial for ensuring long-term product competitiveness. For weather applications, feature enhancement and improvement are particularly important, requiring us to establish a systematic requirements management mechanism. We will comprehensively collect user experience data through multi-dimensional feedback channels, including in-app rating systems, social media monitoring, and user interviews. This raw data will be analyzed by our professional product team and combined with technical feasibility assessments to form a clear iteration roadmap.
-   - For the core functionalities most valued by users, we have developed a phased optimization plan. In the short term, the focus will be on improving forecast accuracy by implementing cross-validation mechanisms with additional data sources to reduce error rates. Mid-term goals include expanding weather alert capabilities by developing a real-time severe weather notification system based on location services. Long-term planning will center on personalized services, leveraging machine learning algorithms to analyze user behavior and provide customized weather recommendations. All improvements will follow A/B testing procedures to ensure the stability and user acceptance of new features upon release.
-   - The operational support system is equally critical. We have established a multi-layered monitoring framework that comprehensively tracks system performance, from front-end performance metrics to back-end API health checks. The deployment process employs a blue-green strategy with rapid rollback capabilities. A real-time log analysis platform tracks anomalies, working in tandem with automated test suites to maintain system failure rates at minimal levels. Through these technical safeguards, we can deliver highly available weather information services to users while laying a solid foundation for future feature iterations.
+### ◦ Validation
+   - Verification focuses on verifying the reliability and system stability of new features before full deployment to ensure compliance with user needs and technical standards.
+      - All functional improvements are compared with the old version through A/B testing to ensure stability and user acceptance at the time of release.
+      - Automated test suites and real-time log analysis platforms continuously monitor system behavior, detect anomalies in a timely manner and maintain the lowest failure rate.
+      - The product team analyzes raw user experience data collected through in-app ratings, social media monitoring and user interviews to verify feature priorities and solve pain points.
+      - Technical feasibility assessment and user feedback analysis are carried out simultaneously to ensure that improvements are both valuable and feasible.
+
+### ◦ Evolution
+   - Evolution involves continuous innovation and iteration based on user needs and technological development to maintain product competitiveness.
+   - A systematic demand management mechanism determines the priority of function development based on multi-dimensional user feedback, forming a clear short-, medium- and long-term evolution roadmap.
+   - Phased optimization of core functions:
+      - Short-term: Improve forecast accuracy and reduce error rate by introducing cross-validation of additional data sources;
+      - Medium-term: Develop a real-time severe weather notification system based on location services to expand weather warning capabilities;
+      - Long-term: Use machine learning to analyze user behavior, provide customized weather recommendations, and strengthen personalized services.
+   - Technical infrastructure upgrade:
+      - Drive innovation in personalized services and warning systems with the help of machine learning algorithms and location services;
+      - Maintain a scalable operation and maintenance support system to support future function iterations through layered monitoring, automated testing, and adaptive deployment strategies (such as blue-green releases).
+   - Continuous data-driven learning:
+      - Continuously analyze user behavior data and system performance indicators to provide a basis for continuous evolution and ensure that applications adapt to changing user expectations and technology trends.
 
 ## Team members and contributions
  ◦ LI MANXIN<br>
