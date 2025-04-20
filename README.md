@@ -161,7 +161,7 @@
 
 # Additional components
 ## Domo
-<iframe width="560" height="315" src="[https://www.youtube.com/embed/VIDEO_ID](https://youtu.be/fmf1oQwZBJk)" ></iframe>
+https://youtu.be/fmf1oQwZBJk
 ## Environments of the software development and running
    - Language: JavaScript (ES6+)
    - Framework: React 18
